@@ -3,7 +3,7 @@ package _2Draw.Panels;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import _2Draw.Shape.Shape;
+import _2Draw.Shapes.Shape;
 
 public class CanvasPanel extends _2DrawPanel {
 	/*

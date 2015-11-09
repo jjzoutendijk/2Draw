@@ -1,4 +1,4 @@
-package _2Draw.Shape;
+package _2Draw.Shapes;
 
 import java.awt.Color;
 

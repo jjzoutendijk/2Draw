@@ -1,4 +1,5 @@
-package _2Draw.Shape;
+package _2Draw.Shapes;
+
 
 public enum FillStyle {
 	
