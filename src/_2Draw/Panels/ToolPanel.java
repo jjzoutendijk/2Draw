@@ -8,8 +8,8 @@ public class ToolPanel extends _2DrawPanel {
 	 * Constructor
 	 * 
 	 */
-	
-	ToolPanel(){
+	public ToolPanel(){
 		this.setBackground(Color.DARK_GRAY);
+		this.setSize(30, 200);
 	}
 }

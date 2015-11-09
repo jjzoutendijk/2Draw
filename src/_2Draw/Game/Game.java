@@ -1,17 +1,19 @@
 package _2Draw.Game;
 
+import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import _2Draw.Panels.CanvasPanel;
+import _2Draw.Panels.*;
 
 public class Game {
 	/* 
 	 * Class Variables
 	 */
 	private JFrame gameFrame;
-	private LayoutManager layout;
+	private FlowLayout layout;
 	
 	/*
 	 * 
@@ -22,12 +24,18 @@ public class Game {
 		gameFrame.setVisible(true);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
+		//create the canvas and tool panels
 		CanvasPanel canvasPanel = new CanvasPanel();
-		canvasPanel.setLayout(layout);
+		ToolPanel toolPanel = new ToolPanel();
+		JPanel containerPanel = new JPanel();
+		containerPanel.setLayout(layout);
+
 		
 		//add the panels to the frame
-		gameFrame.add(canvasPanel);
+		containerPanel.add(canvasPanel);
+		containerPanel.add(toolPanel);
+		gameFrame.add(containerPanel);
+
 		gameFrame.pack();
 		
 		
