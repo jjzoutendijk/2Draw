@@ -1,6 +1,7 @@
 package _2Draw.Panels;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 public class ToolPanel extends _2DrawPanel {
 	
@@ -10,6 +11,6 @@ public class ToolPanel extends _2DrawPanel {
 	 */
 	public ToolPanel(){
 		this.setBackground(Color.DARK_GRAY);
-		this.setSize(30, 200);
+		this.setPreferredSize(new Dimension(100, 300));
 	}
 }

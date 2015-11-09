@@ -3,6 +3,7 @@ package _2Draw.Game;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -13,7 +14,6 @@ public class Game {
 	 * Class Variables
 	 */
 	private JFrame gameFrame;
-	private FlowLayout layout;
 	
 	/*
 	 * 
@@ -28,15 +28,17 @@ public class Game {
 		CanvasPanel canvasPanel = new CanvasPanel();
 		ToolPanel toolPanel = new ToolPanel();
 		JPanel containerPanel = new JPanel();
-		containerPanel.setLayout(layout);
-
 		
 		//add the panels to the frame
+		containerPanel.add(toolPanel);		
 		containerPanel.add(canvasPanel);
-		containerPanel.add(toolPanel);
 		gameFrame.add(containerPanel);
+		BoxLayout ls = new BoxLayout(containerPanel, BoxLayout.X_AXIS);
+		containerPanel.setLayout(ls);
 
 		gameFrame.pack();
+		
+		canvasPanel.requestFocus();
 		
 		
 		
