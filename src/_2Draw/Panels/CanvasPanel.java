@@ -24,7 +24,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolpanel;
-	private int[][] coordinatesTriangle = new int[3][2];
+	//private int[][] coordinatesTriangle = new int[3][2];
 	
 	/* ------------------------------------------------------------------------------------------------------
 	 * Constructor
@@ -51,7 +51,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	
 	/* ------------------------------------------------------------------------------------------------------
 	 * Class Methods, overrides first
-	 * -----------------------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------------------------
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -185,5 +185,6 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	}
 
 
+	//http://zetcode.com/tutorials/javaswingtutorial/resizablecomponent/
 
 }
