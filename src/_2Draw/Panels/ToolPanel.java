@@ -30,6 +30,7 @@ public class ToolPanel extends _2DrawPanel {
 	private JToggleButton circleButton;
 	private JToggleButton squareButton;
 	private JToggleButton triangleButton;
+	private ButtonGroup shapeButtons;
 	
 	private boolean circleActive = false;
 	private boolean squareActive = false;
@@ -40,7 +41,7 @@ public class ToolPanel extends _2DrawPanel {
 	 * Constructor
 	 * 
 	 */
-	public ToolPanel(CanvasPanel canvasPanel){
+	public ToolPanel(){
 
 		
 		// Initialize some values & buttons
@@ -67,50 +68,65 @@ public class ToolPanel extends _2DrawPanel {
 		  } catch (IOException ex){} 		
 		
 		// Create a group to ensure only one button is active
-		ButtonGroup shapeButtons = new ButtonGroup();
+		shapeButtons= new ButtonGroup();
 		shapeButtons.add(circleButton);
 		shapeButtons.add(squareButton);
 		shapeButtons.add(triangleButton);
-		circleButton.setSelected(true);
+		circleButton.setSelected(true);		
 		
-		
+		// Add the buttons to the panel
 		this.add(circleButton);
 		this.add(squareButton);
 		this.add(triangleButton);
 		
-		
-		circleButton.addActionListener(new ActionListener() 
-		{
-			/** Included the action listener  */
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("draw circle");			
-			}
-			
-		}); 
-		
-		circleButton.addActionListener(new ActionListener() 
-		{
-			/** Included the action listener  */
-			@Override
-			public void actionPerformed(ActionEvent e) {
-							
-			}
-			
-		}); 
-		
-		circleButton.addActionListener(new ActionListener() 
-		{
-			/** Included the action listener  */
-			@Override
-			public void actionPerformed(ActionEvent e) {
-							
-			}
-			
-		}); 
+		// Actions events not currently needed
+//		circleButton.addActionListener(new ActionListener() 
+//		{
+//			/** Included the action listener  */
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("Circle active");			
+//			}
+//			
+//		}); 
+//		
+//		squareButton.addActionListener(new ActionListener() 
+//		{
+//			/** Included the action listener  */
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("Square active");
+//			}
+//			
+//		}); 
+//		
+//		triangleButton.addActionListener(new ActionListener() 
+//		{
+//			/** Included the action listener  */
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("Triangle active");			
+//			}
+//			
+//		}); 
 	}
 	
+	/*
+	 * Getters and setters
+	 */
 	
-	
+	// Return the active button from the ToolPanel
+	public String getActiveButton(){
+		if(circleButton.isSelected() == true){
+			return "Circle";
+		}
+		else if(squareButton.isSelected() == true){
+			return "Square";
+		}
+		else if(triangleButton.isSelected() == true){
+			return "Triangle"; 
+		}
+		else return null;
+	}
 	
 }

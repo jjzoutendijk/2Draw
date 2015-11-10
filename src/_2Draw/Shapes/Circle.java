@@ -4,8 +4,9 @@ public class Circle extends Shape {
 	/*
 	 * The Constructors
 	 */
-	public Circle() {
-		// TODO Auto-generated constructor stub
+	public Circle(int x, int y) {
+		super(x,y);
+		this.setType("Circle");
 	}
 
 	

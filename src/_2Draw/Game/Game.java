@@ -25,8 +25,8 @@ public class Game {
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//create the canvas and tool panels
-		CanvasPanel canvasPanel = new CanvasPanel();
-		ToolPanel toolPanel = new ToolPanel(canvasPanel);
+		ToolPanel toolPanel = new ToolPanel();
+		CanvasPanel canvasPanel = new CanvasPanel(toolPanel);
 		JPanel containerPanel = new JPanel();
 		
 		//add the panels to the frame
