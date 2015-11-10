@@ -1,11 +1,10 @@
 package _2Draw.Shapes;
-public class Square extends Shape {
+public class Circle extends Shape {
 	
 	/*
 	 * The Constructors
 	 */
-	public Square() {
-
+	public Circle() {
 		// TODO Auto-generated constructor stub
 	}
 

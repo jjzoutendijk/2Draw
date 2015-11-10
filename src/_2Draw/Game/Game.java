@@ -26,7 +26,7 @@ public class Game {
 		
 		//create the canvas and tool panels
 		CanvasPanel canvasPanel = new CanvasPanel();
-		ToolPanel toolPanel = new ToolPanel();
+		ToolPanel toolPanel = new ToolPanel(canvasPanel);
 		JPanel containerPanel = new JPanel();
 		
 		//add the panels to the frame

@@ -10,9 +10,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.event.MouseInputListener;
+
+import _2Draw.Shapes.Circle;
 import _2Draw.Shapes.Shape;
 
-public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseListener {
+public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputListener {
 	/*
 	 *  Class variables
 	 */
@@ -39,7 +42,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseListene
 	public CanvasPanel(){
 		this.setPreferredSize(new Dimension(300, 300));
 		this.setBackground(Color.WHITE);
-		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
 	
 	/*
@@ -66,10 +69,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseListene
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-	    int x=e.getX();
-	    int y=e.getY();
-	    System.out.println(x+","+y);//these co-ords are relative to the component
-		
+
 	}
 
 	@Override
@@ -85,14 +85,29 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseListene
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mousePressed(MouseEvent e) {
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+	
+	}
+
+	public void addShape(Shape shape) {
+		MouseInfo.getPointerInfo().getLocation();
+		System.out.println(MouseInfo.getPointerInfo().getLocation());
 		
 	}
 }

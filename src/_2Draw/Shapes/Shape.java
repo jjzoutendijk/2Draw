@@ -18,10 +18,7 @@ public abstract class Shape {
 	/*
 	 * The Constructors
 	 */
-	public Shape(int[] location){
-		// Initiate the location
-		this.location[0] = location[0];
-		this.location[1] = location[1];
+	public Shape(){
 		
 		// Set the standard style and color
 		fillStyle = FillStyle.EMPTY;
