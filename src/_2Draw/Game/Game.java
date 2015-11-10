@@ -40,7 +40,6 @@ public class Game {
 
 		gameFrame.pack();
 		
-		canvasPanel.requestFocus();
 		
 	}
 		

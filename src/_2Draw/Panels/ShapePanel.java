@@ -1,5 +1,6 @@
 package _2Draw.Panels;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
@@ -14,7 +15,7 @@ public class ShapePanel extends JPanel implements MouseInputListener {
 	 * ------------------------------------------------------------------------------------------------------
 	 */
 	private JPanel shapePanel = new JPanel();
-	private Shape shape;
+	private String shape;
 	private int locationX, locationY;
 	
 	
@@ -22,14 +23,11 @@ public class ShapePanel extends JPanel implements MouseInputListener {
 	 * The Constructors
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	public ShapePanel(int x, int y, Shape shape){
-		this.setOpaque(true);
+	public ShapePanel(int x, int y, String shape){
+		System.out.println("called");
+		this.setBackground(Color.BLUE);
 		this.shape = shape;
-		this.locationX = x;
-		this.locationY = y;
-		this.setFocusable(true);
 		this.requestFocus();
-
 	}
 	
 
@@ -38,9 +36,24 @@ public class ShapePanel extends JPanel implements MouseInputListener {
 	 * Class Methods
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	public void paint(Graphics g){
-		g.drawOval(locationX, locationY, 50, 50);
-	}
+//	public void paint(Graphics g){
+//		if (shape != null){
+//			switch (shape){
+//				case "Circle":{
+//					g.drawOval(locationX,locationY, 50, 50);
+//					break;
+//				}
+//				case "Square":{
+//					g.drawRect(locationX,locationY, 50, 50);
+//					break;
+//				}
+//				case "Triangle":{
+//					g.drawRect(locationX,locationY, 50, 50);
+//					break;
+//				}
+//			}
+//		}
+//	}
 
 
 	@Override
@@ -82,7 +95,7 @@ public class ShapePanel extends JPanel implements MouseInputListener {
 	public void mouseDragged(MouseEvent e) {
 		int x = e.getX();		
 		int y = e.getY();
-		
+		System.out.println("works");
 	}
 
 

@@ -83,6 +83,14 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		System.out.println(x + "," + y);
+		this.shapePanel = new ShapePanel(x, y, this.toolpanel.getActiveButton());
+		shapePanel.setVisible(true);
+		this.add(shapePanel);
+		shapePanel.setLocation(10, 10);
+		repaint();
 	}
 
 	@Override
@@ -93,7 +101,10 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	public void mouseDragged(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		addActiveShape(this.toolpanel.getActiveButton(),x,y);
+//		addActiveShape(this.toolpanel.getActiveButton(),x,y);
+//		
+		
+
 		repaint();
 	}
 
