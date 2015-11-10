@@ -24,6 +24,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolpanel;
+	private ShapePanel shapePanel = new ShapePanel();
 	//private int[][] coordinatesTriangle = new int[3][2];
 	
 	/* ------------------------------------------------------------------------------------------------------
@@ -34,6 +35,8 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 		this.setPreferredSize(new Dimension(300, 300));
 		this.setBackground(Color.WHITE);
 		this.toolpanel = toolpanel;
+		this.add(shapePanel);
+		
 		addMouseMotionListener(this);
 		addMouseListener(this);
 		addKeyListener(this);
@@ -183,6 +186,8 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 			}
 		}
 	}
+	
+	
 
 
 	//http://zetcode.com/tutorials/javaswingtutorial/resizablecomponent/
