@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -18,7 +20,7 @@ import _2Draw.Shapes.Circle;
 import _2Draw.Shapes.Shape;
 import _2Draw.Shapes.Square;
 
-public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputListener {
+public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputListener, ActionListener {
 	/*
 	 *  Class variables
 	 */
@@ -37,7 +39,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputLi
 		addMouseMotionListener(this);
 		addMouseListener(this);
 		addKeyListener(this);
-		
+		toolpanel.addConfirmationListener(this);
 	}
 	
 	/*
@@ -49,7 +51,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputLi
 
 	
 	/*
-	 * Class Methods
+	 * Class Methods, overrides first
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -111,6 +113,12 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputLi
 	public void mouseMoved(MouseEvent e) {
 	
 	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		shapes.add(activeShape);
+		activeShape = null;	
+	}
 
 	public void addActiveShape(String shape, int x, int y) {
 		//check the selected button
@@ -150,20 +158,22 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputLi
 			for (Shape shapeX : shapes){	
 				switch(shapeX.getType()){
 					case "Circle":{
-						g.drawOval((activeShape.getLocation())[0], (activeShape.getLocation())[1], 50, 50);
+						g.drawOval((shapeX.getLocation())[0], (shapeX.getLocation())[1], 50, 50);
 						break;
 					}
 					case "Square":{
-						g.drawRect((activeShape.getLocation())[0], (activeShape.getLocation())[1], 50, 50);
+						g.drawRect((shapeX.getLocation())[0], (shapeX.getLocation())[1], 50, 50);
 						break;
 					}
 					case "Triangle":{
-						g.drawRect((activeShape.getLocation())[0], (activeShape.getLocation())[1], 50, 50);
+						g.drawRect((shapeX.getLocation())[0], (shapeX.getLocation())[1], 50, 50);
 						break;
 					}
 				}
 			}
 		}
 	}
+
+
 
 }

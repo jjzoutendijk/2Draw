@@ -30,11 +30,8 @@ public class ToolPanel extends _2DrawPanel {
 	private JToggleButton circleButton;
 	private JToggleButton squareButton;
 	private JToggleButton triangleButton;
+	private JButton confirmButton;
 	private ButtonGroup shapeButtons;
-	
-	private boolean circleActive = false;
-	private boolean squareActive = false;
-	private boolean triangleActive = false;
 	
 	
 	/*
@@ -65,6 +62,11 @@ public class ToolPanel extends _2DrawPanel {
 			triangleButton.setPreferredSize(new Dimension(60,60));
 		    Image triangleImage = ImageIO.read(getClass().getResource("/triangle.png"));		    
 		    triangleButton.setIcon(new ImageIcon(triangleImage));
+		    
+		    confirmButton = new JButton();
+		    confirmButton.setPreferredSize(new Dimension(60,60));
+		    Image confirmImage = ImageIO.read(getClass().getResource("/confirm.png"));
+		    confirmButton.setIcon(new ImageIcon(confirmImage)); 
 		  } catch (IOException ex){} 		
 		
 		// Create a group to ensure only one button is active
@@ -78,8 +80,21 @@ public class ToolPanel extends _2DrawPanel {
 		this.add(circleButton);
 		this.add(squareButton);
 		this.add(triangleButton);
+		this.add(confirmButton);
 		
-		// Actions events not currently needed
+		// Actions event for storing the activeShape and committing the turn 
+		confirmButton.addActionListener(new ActionListener()
+				
+				{
+			/** Included the action listener  */
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//confirmAction();		
+			}
+			
+				});
+		
+		// Actions events that are not currently needed
 //		circleButton.addActionListener(new ActionListener() 
 //		{
 //			/** Included the action listener  */
@@ -109,6 +124,10 @@ public class ToolPanel extends _2DrawPanel {
 //			}
 //			
 //		}); 
+	}
+	
+	public void addConfirmationListener(ActionListener listener){
+		confirmButton.addActionListener(listener);
 	}
 	
 	/*
