@@ -24,6 +24,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolpanel;
+	private int[][] coordinatesTriangle = new int[3][2];
 	
 	/* ------------------------------------------------------------------------------------------------------
 	 * Constructor
@@ -72,7 +73,11 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
+		if(toolpanel.getActiveButton().equals("Circle") || toolpanel.getActiveButton().equals("Square")){
+			shapes.add(activeShape);
+			activeShape = null;	
+		}
+		
 	}
 
 	@Override
@@ -89,10 +94,6 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		addActiveShape(this.toolpanel.getActiveButton(),x,y);
-		repaint();
 	}
 
 	@Override
@@ -101,10 +102,15 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		addActiveShape(this.toolpanel.getActiveButton(),x,y);
+		repaint();
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+
 	}
 	
 	@Override
@@ -113,6 +119,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 		activeShape = null;	
 	}
 
+	
 	public void addActiveShape(String shape, int x, int y) {
 		//check the selected button
 		switch(shape){
@@ -128,6 +135,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 		}
 		
 	}
+	
 	
 	/**
 	 * This method paints the components on the canvas. It consists of two parts, one for the active shape, 
