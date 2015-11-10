@@ -24,6 +24,8 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolpanel;
+	private boolean active = false;
+	private ShapePanel shapePanel;
 	//private int[][] coordinatesTriangle = new int[3][2];
 	
 	/* ------------------------------------------------------------------------------------------------------
@@ -56,40 +58,27 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println(e.getKeyCode());
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyTyped(KeyEvent e) {
+		System.out.println(e.getID());
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(toolpanel.getActiveButton().equals("Circle") || toolpanel.getActiveButton().equals("Square")){
-			shapes.add(activeShape);
-			activeShape = null;	
-		}
-		
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseEntered(MouseEvent arg0) {	
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -133,6 +122,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 			activeShape = new Triangle(x,y);
 			break;
 		}
+		
 		
 	}
 	
