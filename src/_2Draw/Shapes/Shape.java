@@ -4,15 +4,16 @@ import java.awt.Color;
 
 
 /**
- * This is an abstract superclass of the drawing shapes programm
+ * This is an abstract superclass of the drawing shapes program
  * 
  * @author Jan Jaap Zoutendijk
  * @version 1.0
  * 
  */
 public abstract class Shape {
-	/* 
+	/* ------------------------------------------------------------------------------------------------------
 	 * Class Variables
+	 * ------------------------------------------------------------------------------------------------------
 	 */
 	private int[] location = new int[2];
 	private Color color;
@@ -20,8 +21,9 @@ public abstract class Shape {
 	private String type;
 	private int size;
 	
-	/*
+	/* ------------------------------------------------------------------------------------------------------
 	 * The Constructors
+	 * ------------------------------------------------------------------------------------------------------
 	 */
 	public Shape(int x, int y){
 		this.location[0] = x;
@@ -34,8 +36,9 @@ public abstract class Shape {
 	}
 	
 	
-	/*
+	/* ------------------------------------------------------------------------------------------------------
 	 * Getters and setters
+	 * ------------------------------------------------------------------------------------------------------
 	 */
 	public int[] getLocation() {
 		return location;
@@ -69,8 +72,9 @@ public abstract class Shape {
 	}
 	
 	
-	/*
+	/* ------------------------------------------------------------------------------------------------------
 	 * Class Methods
+	 * ------------------------------------------------------------------------------------------------------
 	 */
 	public String printShape(){
 		System.out.println("x: " + this.location[0] + "y: " + this.location[1] + "style: " + this.fillStyle);

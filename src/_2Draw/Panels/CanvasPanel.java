@@ -3,15 +3,11 @@ package _2Draw.Panels;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.PointerInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.event.MouseInputListener;
@@ -20,17 +16,18 @@ import _2Draw.Shapes.Circle;
 import _2Draw.Shapes.Shape;
 import _2Draw.Shapes.Square;
 
-public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputListener, ActionListener {
-	/*
+public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener {
+	/* -----------------------------------------------------------------------------------------------------
 	 *  Class variables
+	 * -----------------------------------------------------------------------------------------------------
 	 */
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolpanel;
 	
-	
-	/*
-	 * Constructors
+	/* ------------------------------------------------------------------------------------------------------
+	 * Constructor
+	 * ------------------------------------------------------------------------------------------------------
 	 */
 	public CanvasPanel(ToolPanel toolpanel){
 		this.setPreferredSize(new Dimension(300, 300));
@@ -42,16 +39,18 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputLi
 		toolpanel.addConfirmationListener(this);
 	}
 	
-	/*
+	/* -----------------------------------------------------------------------------------------------------
 	 * Getters and Setters
+	 * -----------------------------------------------------------------------------------------------------
 	 */
 	public ArrayList<Shape> getShapes() {
 		return shapes;
 	}
 
 	
-	/*
+	/* ------------------------------------------------------------------------------------------------------
 	 * Class Methods, overrides first
+	 * -----------------------------------------------------------------------------------------------------
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -92,26 +91,20 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputLi
 	public void mousePressed(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		System.out.println(x + "," + y + "; " + this.toolpanel.getActiveButton()); 	
 		addActiveShape(this.toolpanel.getActiveButton(),x,y);
-		System.out.println("Button: " + this.toolpanel.getActiveButton());
 		repaint();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-	
 	}
 	
 	@Override
@@ -136,7 +129,15 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputLi
 		
 	}
 	
+	/**
+	 * This method paints the components on the canvas. It consists of two parts, one for the active shape, 
+	 * and one for the shapes from previous player turns.
+	 * 
+	 * @author Jan Jaap Zoutendijk
+	 * @version 1.0
+	 */
 	public void paint(Graphics g){
+		// Part one: to draw the active shape
 		if(activeShape != null){
 			switch (activeShape.getType()){
 				case "Circle":{
@@ -153,7 +154,8 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener,MouseInputLi
 				}
 			}	
 		}
-	
+		
+		// Part two: to draw the shapes from the array list
 		if(shapes.size() != 0 ){
 			for (Shape shapeX : shapes){	
 				switch(shapeX.getType()){

@@ -24,8 +24,9 @@ import _2Draw.Shapes.Circle;
  *
  */
 public class ToolPanel extends _2DrawPanel {
-	/*
+	/* ------------------------------------------------------------------------------------------------------
 	 * Class Variables 
+	 * ------------------------------------------------------------------------------------------------------
 	 */
 	private JToggleButton circleButton;
 	private JToggleButton squareButton;
@@ -34,18 +35,15 @@ public class ToolPanel extends _2DrawPanel {
 	private ButtonGroup shapeButtons;
 	
 	
-	/*
+	/* ------------------------------------------------------------------------------------------------------
 	 * Constructor
-	 * 
-	 */
+	 * ------------------------------------------------------------------------------------------------------
+	 */ 
 	public ToolPanel(){
 
-		
 		// Initialize some values & buttons
 		this.setBackground(Color.DARK_GRAY);
 		this.setPreferredSize(new Dimension(100, 300));
-			
-		// Get the images for the buttons
 		try {
 			circleButton = new JToggleButton();
 			circleButton.setPreferredSize(new Dimension(60,60));
@@ -69,14 +67,12 @@ public class ToolPanel extends _2DrawPanel {
 		    confirmButton.setIcon(new ImageIcon(confirmImage)); 
 		  } catch (IOException ex){} 		
 		
-		// Create a group to ensure only one button is active
+		// Create a group to ensure only one button is active, select circle per default and add to panel
 		shapeButtons= new ButtonGroup();
 		shapeButtons.add(circleButton);
 		shapeButtons.add(squareButton);
 		shapeButtons.add(triangleButton);
 		circleButton.setSelected(true);		
-		
-		// Add the buttons to the panel
 		this.add(circleButton);
 		this.add(squareButton);
 		this.add(triangleButton);
@@ -85,56 +81,25 @@ public class ToolPanel extends _2DrawPanel {
 		// Actions event for storing the activeShape and committing the turn 
 		confirmButton.addActionListener(new ActionListener()
 				
-				{
+		{
 			/** Included the action listener  */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//confirmAction();		
 			}
 			
-				});
-		
-		// Actions events that are not currently needed
-//		circleButton.addActionListener(new ActionListener() 
-//		{
-//			/** Included the action listener  */
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				System.out.println("Circle active");			
-//			}
-//			
-//		}); 
-//		
-//		squareButton.addActionListener(new ActionListener() 
-//		{
-//			/** Included the action listener  */
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				System.out.println("Square active");
-//			}
-//			
-//		}); 
-//		
-//		triangleButton.addActionListener(new ActionListener() 
-//		{
-//			/** Included the action listener  */
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				System.out.println("Triangle active");			
-//			}
-//			
-//		}); 
+		});
 	}
-	
-	public void addConfirmationListener(ActionListener listener){
-		confirmButton.addActionListener(listener);
-	}
-	
-	/*
+
+	/*------------------------------------------------------------------------------------------------------
 	 * Getters and setters
+	 * -----------------------------------------------------------------------------------------------------
 	 */
 	
-	// Return the active button from the ToolPanel
+	/**
+	 * Return the active button text, so it is clear which button is selected. 
+	 * @return The active button in a string
+	 */
 	public String getActiveButton(){
 		if(circleButton.isSelected() == true){
 			return "Circle";
@@ -147,5 +112,18 @@ public class ToolPanel extends _2DrawPanel {
 		}
 		else return null;
 	}
+	
+	/* ------------------------------------------------------------------------------------------------------
+	 * Class Methods
+	 * ------------------------------------------------------------------------------------------------------
+	 */
+	/**
+	 * A confirmation listener for the canvasPanel, so the canvasPanel knows when to submit the active shape to the shapes array list
+	 * @param listener
+	 */
+	public void addConfirmationListener(ActionListener listener){
+		confirmButton.addActionListener(listener);
+	}
+	
 	
 }
