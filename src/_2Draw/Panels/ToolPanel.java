@@ -28,10 +28,10 @@ public class ToolPanel extends _2DrawPanel {
 	 * Class Variables 
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	private JToggleButton circleButton;
-	private JToggleButton squareButton;
-	private JToggleButton triangleButton;
-	private JButton confirmButton;
+	JToggleButton circleButton;
+	JToggleButton squareButton;
+	JToggleButton triangleButton;
+	JButton confirmButton;
 	private ButtonGroup shapeButtons;
 	
 	
@@ -72,23 +72,24 @@ public class ToolPanel extends _2DrawPanel {
 		shapeButtons.add(circleButton);
 		shapeButtons.add(squareButton);
 		shapeButtons.add(triangleButton);
-		circleButton.setSelected(true);		
+	
 		this.add(circleButton);
 		this.add(squareButton);
 		this.add(triangleButton);
 		this.add(confirmButton);
 		
-		// Actions event for storing the activeShape and committing the turn 
-		confirmButton.addActionListener(new ActionListener()
-				
-		{
-			/** Included the action listener  */
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//confirmAction();		
-			}
-			
-		});
+//		// Actions event for storing the activeShape and committing the turn 
+//		confirmButton.addActionListener(new ActionListener()
+//				
+//		{
+//			/** Included the action listener  */
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				confirmAction();		
+//			}
+//			
+//		});
+
 	}
 
 	/*------------------------------------------------------------------------------------------------------
@@ -123,6 +124,7 @@ public class ToolPanel extends _2DrawPanel {
 	 */
 	public void addConfirmationListener(ActionListener listener){
 		confirmButton.addActionListener(listener);
+		circleButton.addActionListener(listener);
 	}
 	
 	

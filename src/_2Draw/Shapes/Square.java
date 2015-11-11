@@ -11,8 +11,8 @@ public class Square extends Shape {
 	 * The Constructors
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	public Square(int x, int y) {
-		super(x,y);
+	public Square() {
+		super();
 		this.setType("Square");
 	}
 

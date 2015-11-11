@@ -15,24 +15,27 @@ public abstract class Shape {
 	 * Class Variables
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	private int[] location = new int[2];
+	private int x,y;
 	private Color color;
 	private FillStyle fillStyle;
 	private String type;
-	private int size;
+	private int height;
+	private int width;
+	
 	
 	/* ------------------------------------------------------------------------------------------------------
 	 * The Constructors
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	public Shape(int x, int y){
-		this.location[0] = x;
-		this.location[1] = y;		
+	public Shape(){
+		this.x = 10;
+		this.y = 10;		
 		
 		// Set the standard style, color and size
 		fillStyle = FillStyle.EMPTY;
 		color = Color.BLACK;
-		size = 50;
+		height = 50;
+		width = 50;
 	}
 	
 	
@@ -40,14 +43,21 @@ public abstract class Shape {
 	 * Getters and setters
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	public int[] getLocation() {
-		return location;
-	}
-	public void setLocation(int[] location) {
-		this.location = location;
-	}	
+
 	public Color getColor() {
 		return color;
+	}
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int y) {
+		this.y = y;
 	}
 	public void setColor(Color color) {
 		this.color = color;
@@ -64,12 +74,19 @@ public abstract class Shape {
 	public void setType(String type){
 		this.type = type;
 	}
-	public int getSize(){
-		return this.size;
+	public int getHeight() {
+		return height;
 	}
-	public void setSize(int size){
-		this.size = size;
+	public void setHeight(int height) {
+		this.height = height;
 	}
+	public int getWidth() {
+		return width;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
 	
 	
 	/* ------------------------------------------------------------------------------------------------------
@@ -77,11 +94,23 @@ public abstract class Shape {
 	 * ------------------------------------------------------------------------------------------------------
 	 */
 	public String printShape(){
-		System.out.println("x: " + this.location[0] + "y: " + this.location[1] + "style: " + this.fillStyle);
-		return new String("x: " + this.location[0] + "y: " + this.location[1] + "style: " + this.fillStyle); 
+		System.out.println("x: " + this.x + "y: " + this.y + "style: " + this.fillStyle);
+		return new String("x: " + this.x + "y: " + this.y + "style: " + this.fillStyle); 
 	}
 	
+	public void increaseWidth(){
+		this.width += 2;
+	}
+	public void increaseHeight(){
+		this.height += 2;
+	}
 
+	public void decreaseWidth(){
+		this.width -= 2;
+	}
+	public void decreaseHeight(){
+		this.height -= 2;
+	}
 	
 	
 }
