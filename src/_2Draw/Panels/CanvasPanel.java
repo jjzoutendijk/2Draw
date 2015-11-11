@@ -24,6 +24,9 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolpanel;
+	private boolean active = false;
+	private ShapePanel shapePanel;
+
 	
 	/* ------------------------------------------------------------------------------------------------------
 	 * Constructor
@@ -50,13 +53,15 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	
 	/* ------------------------------------------------------------------------------------------------------
 	 * Class Methods, overrides first
-	 * -----------------------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------------------------
 	 */
 	
 	@Override
 	public void keyPressed(KeyEvent e) {	
+		System.out.println(e.getKeyCode());
 		if(activeShape != null){
 			if(e.getKeyCode() == 38){
+				
 				activeShape.increaseHeight();
 			}
 			else if(e.getKeyCode() == 39){
@@ -71,6 +76,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 		}
 		repaint();
 	}
+		
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
@@ -82,19 +88,14 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseEntered(MouseEvent arg0) {	
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -133,6 +134,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 			activeShape = null;
 		}
 		repaint();
+		
 	}
 
 	
@@ -184,5 +186,6 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	}
 
 
+	//http://zetcode.com/tutorials/javaswingtutorial/resizablecomponent/
 
 }

@@ -42,7 +42,6 @@ public class Game {
 		gameFrame.setResizable(false);
 		gameFrame.pack();
 		
-		canvasPanel.requestFocus();
 		
 	}
 		

@@ -94,13 +94,13 @@ public abstract class Shape {
 	 * ------------------------------------------------------------------------------------------------------
 	 */
 	public String printShape(){
-		System.out.println("x: " + this.x + "y: " + this.y + "style: " + this.fillStyle);
 		return new String("x: " + this.x + "y: " + this.y + "style: " + this.fillStyle); 
 	}
 	
 	public void increaseWidth(){
 		this.width += 2;
 	}
+	
 	public void increaseHeight(){
 		this.height += 2;
 	}
@@ -114,7 +114,6 @@ public abstract class Shape {
 		if (this.height > 10){
 			this.height -= 2;
 		}
-			
 	}
 	
 	
