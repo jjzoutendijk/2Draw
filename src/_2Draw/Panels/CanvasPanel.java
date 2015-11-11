@@ -24,7 +24,8 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolpanel;
-	private ShapePanel shapePanel = new ShapePanel();
+	private ShapePanel shapePanel;
+	private boolean active = false;
 	//private int[][] coordinatesTriangle = new int[3][2];
 	
 	/* ------------------------------------------------------------------------------------------------------
@@ -59,44 +60,39 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println(e.getKeyCode());
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyTyped(KeyEvent e) {
+		System.out.println(e.getID());
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(toolpanel.getActiveButton().equals("Circle") || toolpanel.getActiveButton().equals("Square")){
-			shapes.add(activeShape);
-			activeShape = null;	
-		}
-		
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseEntered(MouseEvent arg0) {	
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		System.out.println(x + "," + y);
+		this.shapePanel = new ShapePanel(x, y, this.toolpanel.getActiveButton());
+		shapePanel.setVisible(true);
+		this.add(shapePanel);
+		shapePanel.setLocation(10, 10);
+		repaint();
 	}
 
 	@Override
@@ -107,7 +103,10 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	public void mouseDragged(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		addActiveShape(this.toolpanel.getActiveButton(),x,y);
+//		addActiveShape(this.toolpanel.getActiveButton(),x,y);
+//		
+		
+
 		repaint();
 	}
 
@@ -136,6 +135,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 			activeShape = new Triangle(x,y);
 			break;
 		}
+		
 		
 	}
 	
