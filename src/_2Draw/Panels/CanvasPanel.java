@@ -24,8 +24,6 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolpanel;
-	private boolean active = false;
-	private ShapePanel shapePanel;
 
 	
 	/* ------------------------------------------------------------------------------------------------------
@@ -57,8 +55,11 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	 */
 	
 	@Override
+	/*
+	 * This Class handles the keypressed events. They include
+	 * the arrow keys, which reshape the active shape
+	 */
 	public void keyPressed(KeyEvent e) {	
-		System.out.println(e.getKeyCode());
 		if(activeShape != null){
 			if(e.getKeyCode() == 38){
 				
@@ -107,6 +108,9 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	}
 
 	@Override
+	/*
+	 * When dragging the mouse, the shape is dragged along.
+	 */
 	public void mouseDragged(MouseEvent e) {
 		if(activeShape != null){
 			activeShape.setX(e.getX());
@@ -121,8 +125,10 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	}
 	
 	@Override
+	/*
+	 * The Actions associated with the buttons on the tool panel.
+	 */
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(e.getSource());
 		if(e.getSource().equals(toolpanel.circleButton)){
 			activeShape = new Circle();
 		}
@@ -138,12 +144,9 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	}
 
 	
-	/**
+	/*
 	 * This method paints the components on the canvas. It consists of two parts, one for the active shape, 
 	 * and one for the shapes from previous player turns.
-	 * 
-	 * @author Jan Jaap Zoutendijk
-	 * @version 1.0
 	 */
 	public void paint(Graphics g){
 		// Part one: to draw the active shape
@@ -164,7 +167,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 			}	
 		}
 		
-// Part two: to draw the shapes from the array list
+		// Part two: to draw the shapes from the array list
 		if(shapes.size() != 0 ){
 			for (Shape shapeX : shapes){	
 				switch(shapeX.getType()){
@@ -184,8 +187,4 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 			}
 		}
 	}
-
-
-	//http://zetcode.com/tutorials/javaswingtutorial/resizablecomponent/
-
 }

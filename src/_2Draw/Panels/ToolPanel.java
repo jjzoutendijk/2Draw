@@ -36,7 +36,7 @@ public class ToolPanel extends _2DrawPanel {
 	JButton confirmButton;
 	private ButtonGroup shapeButtons;
 	private ButtonGroup colorButtons;
-	private static Dimension buttonSize = new Dimension(20,20);
+	private static Dimension buttonSize = new Dimension(30,30);
 	
 	
 	/* ------------------------------------------------------------------------------------------------------
@@ -74,10 +74,16 @@ public class ToolPanel extends _2DrawPanel {
 		
 		redButton = new JToggleButton();
 		redButton.setPreferredSize(buttonSize);
+		redButton.setBackground(Color.RED);
+		redButton.setForeground(Color.RED);
 		blueButton = new JToggleButton();
+		blueButton.setBackground(Color.BLUE);
+		blueButton.setForeground(Color.BLUE);
 		blueButton.setPreferredSize(buttonSize);
 		greenButton = new JToggleButton();
 		greenButton.setPreferredSize(buttonSize);
+		greenButton.setBackground(Color.GREEN);
+		greenButton.setForeground(Color.GREEN);
 		blackButton = new JToggleButton();
 		blackButton.setPreferredSize(buttonSize);
 		
