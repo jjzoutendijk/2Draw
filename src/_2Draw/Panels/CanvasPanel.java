@@ -23,21 +23,21 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	 */
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
-	private ToolPanel toolpanel;
+	private ToolPanel toolPanel;
 
 	
 	/* ------------------------------------------------------------------------------------------------------
 	 * Constructor
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	public CanvasPanel(ToolPanel toolpanel){
+	public CanvasPanel(ToolPanel toolPanel){
 		this.setPreferredSize(new Dimension(300, 300));
 		this.setBackground(Color.WHITE);
-		this.toolpanel = toolpanel;
+		this.toolPanel = toolPanel;
 		addMouseMotionListener(this);
 		addMouseListener(this);
 		addKeyListener(this);
-		toolpanel.addConfirmationListener(this);
+		toolPanel.addConfirmationListener(this);
 	}
 	
 	/* -----------------------------------------------------------------------------------------------------
@@ -129,15 +129,34 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	 * The Actions associated with the buttons on the tool panel.
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(toolpanel.circleButton)){
+		if(e.getSource().equals(toolPanel.circleButton)){
 			activeShape = new Circle();
 		}
-		if(e.getSource().equals(toolpanel.squareButton)){
+		if(e.getSource().equals(toolPanel.squareButton)){
 			activeShape = new Square();
 		}
-		if(e.getSource().equals(toolpanel.confirmButton)){
+		if(e.getSource().equals(toolPanel.confirmButton)){
 			shapes.add(activeShape);
 			activeShape = null;
+		}
+		
+		if( activeShape != null){
+			
+			if(e.getSource().equals(toolPanel.redButton)){
+				activeShape.setColor(Color.RED);
+			}
+			if(e.getSource().equals(toolPanel.whiteButton)){
+				activeShape.setColor(Color.WHITE);
+			}
+			if(e.getSource().equals(toolPanel.greenButton)){
+				activeShape.setColor(Color.GREEN);
+			}
+			if(e.getSource().equals(toolPanel.blueButton)){
+				activeShape.setColor(Color.BLUE);
+			}
+			if(e.getSource().equals(toolPanel.blackButton)){
+				activeShape.setColor(Color.BLACK);
+			}
 		}
 		repaint();
 		
@@ -151,6 +170,30 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	public void paint(Graphics g){
 		// Part one: to draw the active shape
 		if(activeShape != null){
+			
+			switch (activeShape.getColorString()){
+				case "white":{
+					g.setColor(Color.WHITE);
+					break;
+				}
+				case "red":{
+					g.setColor(Color.RED);
+					break;
+				}
+				case "green":{
+					g.setColor(Color.GREEN);
+					break;
+				}
+				case "blue":{
+					g.setColor(Color.BLUE);
+					break;
+				}
+				default:{
+					g.setColor(Color.BLACK);
+					break;
+				}
+				
+			}
 			switch (activeShape.getType()){
 				case "Circle":{
 					g.drawOval(activeShape.getX(), activeShape.getY(), activeShape.getWidth(), activeShape.getHeight());
@@ -165,6 +208,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 					break;
 				}
 			}	
+
 		}
 		
 		// Part two: to draw the shapes from the array list
@@ -186,5 +230,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 				}
 			}
 		}
+		
+
 	}
 }

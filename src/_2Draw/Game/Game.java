@@ -1,5 +1,6 @@
 package _2Draw.Game;
 
+import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 
@@ -31,14 +32,12 @@ public class Game {
 		CanvasPanel canvasPanel = new CanvasPanel(toolPanel);
 		JPanel containerPanel = new JPanel();
 		
-		//toolPanel.setLayout(new BoxLayout(toolPanel, BoxLayout.Y_AXIS));
+		toolPanel.setLayout(new BoxLayout(toolPanel, BoxLayout.Y_AXIS));
 		
 		//add the panels to the frame
 		containerPanel.add(toolPanel);		
 		containerPanel.add(canvasPanel);
 		gameFrame.add(containerPanel);
-		BoxLayout ls = new BoxLayout(containerPanel, BoxLayout.X_AXIS);
-		containerPanel.setLayout(ls);
 		gameFrame.setResizable(false);
 		gameFrame.pack();
 		

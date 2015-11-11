@@ -115,6 +115,23 @@ public abstract class Shape {
 			this.height -= 2;
 		}
 	}
+
+
+	public String getColorString() {
+		if(this.color == color.RED){
+			return "red";
+		}
+		else if(this.color == color.BLUE){
+			return "blue"; 
+		}
+		else if(this.color == color.GREEN){
+			return "green";
+		}
+		else if(this.color == color.BLACK){
+			return "black";
+		} else
+			return "white";
+	}
 	
 	
 }
