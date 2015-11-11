@@ -106,10 +106,15 @@ public abstract class Shape {
 	}
 
 	public void decreaseWidth(){
-		this.width -= 2;
+		if (this.width > 10){
+			this.width -= 2;
+		}
 	}
 	public void decreaseHeight(){
-		this.height -= 2;
+		if (this.height > 10){
+			this.height -= 2;
+		}
+			
 	}
 	
 	

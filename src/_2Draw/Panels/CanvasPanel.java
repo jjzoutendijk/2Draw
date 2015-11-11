@@ -82,11 +82,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(toolpanel.getActiveButton().equals("Circle") || toolpanel.getActiveButton().equals("Square")){
-			shapes.add(activeShape);
-			activeShape = null;	
-		}
-		
+
 	}
 
 	@Override
@@ -132,6 +128,10 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 		if(e.getSource().equals(toolpanel.squareButton)){
 			activeShape = new Square();
 		}
+		if(e.getSource().equals(toolpanel.confirmButton)){
+			shapes.add(activeShape);
+			activeShape = null;
+		}
 		repaint();
 	}
 
@@ -162,25 +162,25 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 			}	
 		}
 		
-		// Part two: to draw the shapes from the array list
-//		if(shapes.size() != 0 ){
-//			for (Shape shapeX : shapes){	
-//				switch(shapeX.getType()){
-//					case "Circle":{
-//						g.drawOval((shapeX.getLocation())[0], (shapeX.getLocation())[1], 50, 50);
-//						break;
-//					}
-//					case "Square":{
-//						g.drawRect((shapeX.getLocation())[0], (shapeX.getLocation())[1], 50, 50);
-//						break;
-//					}
-//					case "Triangle":{
-//						g.drawRect((shapeX.getLocation())[0], (shapeX.getLocation())[1], 50, 50);
-//						break;
-//					}
-//				}
-//			}
-//		}
+// Part two: to draw the shapes from the array list
+		if(shapes.size() != 0 ){
+			for (Shape shapeX : shapes){	
+				switch(shapeX.getType()){
+					case "Circle":{
+						g.drawOval(shapeX.getX(),shapeX.getY() , shapeX.getWidth(), shapeX.getHeight());
+						break;
+					}
+					case "Square":{
+						g.drawRect(shapeX.getX(),shapeX.getY() , shapeX.getWidth(), shapeX.getHeight());
+						break;
+					}
+					case "Triangle":{
+						g.drawRect(shapeX.getX(),shapeX.getY() , shapeX.getWidth(), shapeX.getHeight());
+						break;
+					}
+				}
+			}
+		}
 	}
 
 

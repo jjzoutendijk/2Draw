@@ -4,17 +4,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
-
-import _2Draw.Shapes.Circle;
 
 /**
  * The tool panel is the panel on the left hand side in the application. The tools are displayed on this panel and 
@@ -31,8 +29,14 @@ public class ToolPanel extends _2DrawPanel {
 	JToggleButton circleButton;
 	JToggleButton squareButton;
 	JToggleButton triangleButton;
+	JToggleButton redButton;
+	JToggleButton blueButton;
+	JToggleButton greenButton;
+	JToggleButton blackButton;
 	JButton confirmButton;
 	private ButtonGroup shapeButtons;
+	private ButtonGroup colorButtons;
+	private static Dimension buttonSize = new Dimension(20,20);
 	
 	
 	/* ------------------------------------------------------------------------------------------------------
@@ -44,51 +48,60 @@ public class ToolPanel extends _2DrawPanel {
 		// Initialize some values & buttons
 		this.setBackground(Color.DARK_GRAY);
 		this.setPreferredSize(new Dimension(100, 300));
+		this.setSize(100, 300);		
 		try {
 			circleButton = new JToggleButton();
-			circleButton.setPreferredSize(new Dimension(60,60));
+			circleButton.setPreferredSize(buttonSize);
 		    Image circleImage = ImageIO.read(getClass().getResource("/circle.png"));
 		    circleButton.setIcon(new ImageIcon(circleImage));
 		    circleButton.setMargin(new Insets(0, 0, 0, 0));
 		    
 		    squareButton = new JToggleButton();
-			squareButton.setPreferredSize(new Dimension(60,60));
+			squareButton.setPreferredSize(buttonSize);
 		    Image squareImage = ImageIO.read(getClass().getResource("/square.png"));
 		    squareButton.setIcon(new ImageIcon(squareImage));
 		    
 		    triangleButton = new JToggleButton();
-			triangleButton.setPreferredSize(new Dimension(60,60));
+			triangleButton.setPreferredSize(buttonSize);
 		    Image triangleImage = ImageIO.read(getClass().getResource("/triangle.png"));		    
 		    triangleButton.setIcon(new ImageIcon(triangleImage));
 		    
 		    confirmButton = new JButton();
-		    confirmButton.setPreferredSize(new Dimension(60,60));
+		    confirmButton.setPreferredSize(buttonSize);
 		    Image confirmImage = ImageIO.read(getClass().getResource("/confirm.png"));
 		    confirmButton.setIcon(new ImageIcon(confirmImage)); 
 		  } catch (IOException ex){} 		
+		
+		redButton = new JToggleButton();
+		redButton.setPreferredSize(buttonSize);
+		blueButton = new JToggleButton();
+		blueButton.setPreferredSize(buttonSize);
+		greenButton = new JToggleButton();
+		greenButton.setPreferredSize(buttonSize);
+		blackButton = new JToggleButton();
+		blackButton.setPreferredSize(buttonSize);
+		
 		
 		// Create a group to ensure only one button is active, select circle per default and add to panel
 		shapeButtons= new ButtonGroup();
 		shapeButtons.add(circleButton);
 		shapeButtons.add(squareButton);
 		shapeButtons.add(triangleButton);
+		
+		colorButtons = new ButtonGroup();
+		colorButtons.add(blueButton);
+		colorButtons.add(redButton);
+		colorButtons.add(blackButton);
+		colorButtons.add(greenButton);
 	
 		this.add(circleButton);
 		this.add(squareButton);
 		this.add(triangleButton);
 		this.add(confirmButton);
-		
-//		// Actions event for storing the activeShape and committing the turn 
-//		confirmButton.addActionListener(new ActionListener()
-//				
-//		{
-//			/** Included the action listener  */
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				confirmAction();		
-//			}
-//			
-//		});
+		this.add(redButton);
+		this.add(blackButton);
+		this.add(blueButton);
+		this.add(greenButton);
 
 	}
 
@@ -125,6 +138,7 @@ public class ToolPanel extends _2DrawPanel {
 	public void addConfirmationListener(ActionListener listener){
 		confirmButton.addActionListener(listener);
 		circleButton.addActionListener(listener);
+		squareButton.addActionListener(listener);
 	}
 	
 	
