@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.event.MouseInputListener;
 
 import _2Draw.Shapes.Circle;
+import _2Draw.Shapes.FillStyle;
 import _2Draw.Shapes.Shape;
 import _2Draw.Shapes.Square;
 
@@ -31,7 +32,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	 * ------------------------------------------------------------------------------------------------------
 	 */
 	public CanvasPanel(ToolPanel toolPanel){
-		this.setPreferredSize(new Dimension(300, 300));
+		this.setPreferredSize(new Dimension(500, 500));
 		this.setBackground(Color.WHITE);
 		this.toolPanel = toolPanel;
 		addMouseMotionListener(this);
@@ -62,7 +63,6 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	public void keyPressed(KeyEvent e) {	
 		if(activeShape != null){
 			if(e.getKeyCode() == 38){
-				
 				activeShape.increaseHeight();
 			}
 			else if(e.getKeyCode() == 39){
@@ -125,7 +125,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	}
 	
 	@Override
-	/*
+	/**
 	 * The Actions associated with the buttons on the tool panel.
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -135,102 +135,124 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 		if(e.getSource().equals(toolPanel.squareButton)){
 			activeShape = new Square();
 		}
-		if(e.getSource().equals(toolPanel.confirmButton)){
-			shapes.add(activeShape);
-			activeShape = null;
-		}
+
 		
 		if( activeShape != null){
-			
 			if(e.getSource().equals(toolPanel.redButton)){
 				activeShape.setColor(Color.RED);
 			}
-			if(e.getSource().equals(toolPanel.whiteButton)){
+			else if(e.getSource().equals(toolPanel.whiteButton)){
 				activeShape.setColor(Color.WHITE);
 			}
-			if(e.getSource().equals(toolPanel.greenButton)){
+			else if(e.getSource().equals(toolPanel.greenButton)){
 				activeShape.setColor(Color.GREEN);
 			}
-			if(e.getSource().equals(toolPanel.blueButton)){
+			else if(e.getSource().equals(toolPanel.blueButton)){
 				activeShape.setColor(Color.BLUE);
 			}
-			if(e.getSource().equals(toolPanel.blackButton)){
+			else if(e.getSource().equals(toolPanel.blackButton)){
 				activeShape.setColor(Color.BLACK);
 			}
+			if(e.getSource().equals(toolPanel.noFillButton)){
+				activeShape.setFillStyle(FillStyle.EMPTY);
+			}
+			else if(e.getSource().equals(toolPanel.solidFillButton)){
+				activeShape.setFillStyle(FillStyle.SOLID);
+			}
+			if(e.getSource().equals(toolPanel.confirmButton)){
+				shapes.add(activeShape);
+				activeShape = null;
+			}			
 		}
 		repaint();
-		
 	}
-
 	
-	/*
+/**
+ * This method sets the graphics color to the proper value, getting the value from the shape and setting it in the graphics object
+ * @param g - The graphics object for which the color value will be set
+ * @param shape - The shape object which carries the color information
+ * @return The return value is the graphics object with the proper color set
+ */
+	public Graphics setGraphicsColor(Graphics g, Shape shape){
+		switch (shape.getColorString()){
+			case "white":{
+				g.setColor(Color.WHITE);
+				break;
+			}
+			case "red":{
+				g.setColor(Color.RED);
+				break;
+			}
+			case "green":{
+				g.setColor(Color.GREEN);
+				break;
+			}
+			case "blue":{
+				g.setColor(Color.BLUE);
+				break;
+			}
+			default:{
+				g.setColor(Color.BLACK);
+				break;
+			}
+		}
+	return g;	
+	}
+	
+	/**
+	 * This method draws the eventual shape on the canvas
+	 * @param g - The graphics needed to draw the shape
+	 * @param shape - Carries the information needed to draw the shape
+	 */
+	public void drawShape(Graphics g, Shape shape){
+		if(shape.getFillStyle() == FillStyle.EMPTY){
+		
+			switch (shape.getType()){
+				case "Circle":{
+					g.drawOval(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+					break;
+				}
+				case "Square":{
+					g.drawRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+					break;
+				}
+
+			}	
+		}
+		else{
+			switch (shape.getType()){
+			case "Circle":{
+				g.fillOval(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+				break;
+			}
+			case "Square":{
+				g.fillRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+				break;
+			}
+			}	
+		}
+	}
+	
+	
+	/**
 	 * This method paints the components on the canvas. It consists of two parts, one for the active shape, 
 	 * and one for the shapes from previous player turns.
 	 */
 	public void paint(Graphics g){
-		// Part one: to draw the active shape
-		if(activeShape != null){
-			
-			switch (activeShape.getColorString()){
-				case "white":{
-					g.setColor(Color.WHITE);
-					break;
-				}
-				case "red":{
-					g.setColor(Color.RED);
-					break;
-				}
-				case "green":{
-					g.setColor(Color.GREEN);
-					break;
-				}
-				case "blue":{
-					g.setColor(Color.BLUE);
-					break;
-				}
-				default:{
-					g.setColor(Color.BLACK);
-					break;
-				}
-				
-			}
-			switch (activeShape.getType()){
-				case "Circle":{
-					g.drawOval(activeShape.getX(), activeShape.getY(), activeShape.getWidth(), activeShape.getHeight());
-					break;
-				}
-				case "Square":{
-					g.drawRect(activeShape.getX(), activeShape.getY(), activeShape.getWidth(), activeShape.getHeight());
-					break;
-				}
-				case "Triangle":{
-					g.drawRect(activeShape.getX(), activeShape.getY(), activeShape.getWidth(), activeShape.getHeight());
-					break;
-				}
-			}	
-
-		}
-		
 		// Part two: to draw the shapes from the array list
 		if(shapes.size() != 0 ){
 			for (Shape shapeX : shapes){	
-				switch(shapeX.getType()){
-					case "Circle":{
-						g.drawOval(shapeX.getX(),shapeX.getY() , shapeX.getWidth(), shapeX.getHeight());
-						break;
-					}
-					case "Square":{
-						g.drawRect(shapeX.getX(),shapeX.getY() , shapeX.getWidth(), shapeX.getHeight());
-						break;
-					}
-					case "Triangle":{
-						g.drawRect(shapeX.getX(),shapeX.getY() , shapeX.getWidth(), shapeX.getHeight());
-						break;
-					}
-				}
+				g = setGraphicsColor(g, shapeX);
+				drawShape(g, shapeX);
 			}
 		}
+		// Part one: to draw the active shape
+		if(activeShape != null){
+			g = setGraphicsColor(g, activeShape);
+			drawShape(g, activeShape);
+		}
 		
+
 
 	}
 }

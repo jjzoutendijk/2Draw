@@ -9,10 +9,10 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 
 /**
@@ -29,15 +29,20 @@ public class ToolPanel extends _2DrawPanel {
 	 */
 	JToggleButton circleButton;
 	JToggleButton squareButton;
-	JToggleButton triangleButton;
 	JToggleButton whiteButton;
 	JToggleButton redButton;
 	JToggleButton blueButton;
 	JToggleButton greenButton;
 	JToggleButton blackButton;
+	JToggleButton noFillButton;
+	JToggleButton solidFillButton;
 	JButton confirmButton;
+	private JLabel shapeLabel;
+	private JLabel colorLabel;
+	private JLabel fillStyleLabel;
 	private ButtonGroup shapeButtons;
 	private ButtonGroup colorButtons;
+	private ButtonGroup fillStyleButtons;
 	private static Dimension buttonSize = new Dimension(30,30);
 
 
@@ -49,13 +54,12 @@ public class ToolPanel extends _2DrawPanel {
 
 		// Initialize some values & buttons
 		this.setBackground(Color.DARK_GRAY);
-		this.setPreferredSize(new Dimension(100, 300));
+		this.setPreferredSize(new Dimension(100, 500));
 		this.setSize(100, 300);		
 
 		// Initialize the buttons using the class method
 		circleButton = createAToggleButton("/circle.png");
 		squareButton = createAToggleButton("/square.png");
-		triangleButton = createAToggleButton("/triangle.png");
 		confirmButton = createAButton("/confirm.png");
 		
 		whiteButton = createAToggleButton("/white.png");
@@ -63,13 +67,19 @@ public class ToolPanel extends _2DrawPanel {
 		blueButton = createAToggleButton("/blue.png");
 		greenButton = createAToggleButton("/green.png");
 		blackButton = createAToggleButton("/black.png");
-
+		
+		noFillButton = createAToggleButton("/noFill.png");
+		solidFillButton = createAToggleButton("/SolidFill.png");
+		
+		// Create the JLabels
+		shapeLabel = createALabel("Shape");
+		colorLabel = createALabel("Color");
+		fillStyleLabel = createALabel("Fill Style");
 
 		// Create groups to ensure only one button is active
 		shapeButtons= new ButtonGroup();
 		shapeButtons.add(circleButton);
 		shapeButtons.add(squareButton);
-		shapeButtons.add(triangleButton);
 
 		colorButtons = new ButtonGroup();
 		colorButtons.add(whiteButton);
@@ -77,17 +87,25 @@ public class ToolPanel extends _2DrawPanel {
 		colorButtons.add(redButton);
 		colorButtons.add(blackButton);
 		colorButtons.add(greenButton);
+		
+		fillStyleButtons = new ButtonGroup();
+		fillStyleButtons.add(solidFillButton);
+		fillStyleButtons.add(noFillButton);
 
 		// Add the buttons to the panel
+		this.add(shapeLabel);
 		this.add(circleButton);
 		this.add(squareButton);
-		this.add(triangleButton);
-		this.add(confirmButton);
+		this.add(colorLabel);
 		this.add(whiteButton);
 		this.add(redButton);
 		this.add(blackButton);
 		this.add(blueButton);
 		this.add(greenButton);
+		this.add(fillStyleLabel);
+		this.add(noFillButton);
+		this.add(solidFillButton);
+		this.add(confirmButton);
 
 	}
 
@@ -106,9 +124,6 @@ public class ToolPanel extends _2DrawPanel {
 		}
 		else if(squareButton.isSelected() == true){
 			return "Square";
-		}
-		else if(triangleButton.isSelected() == true){
-			return "Triangle"; 
 		}
 		else return null;
 	}
@@ -130,6 +145,8 @@ public class ToolPanel extends _2DrawPanel {
 		whiteButton.addActionListener(listener);
 		greenButton.addActionListener(listener);
 		blueButton.addActionListener(listener);
+		noFillButton.addActionListener(listener);
+		solidFillButton.addActionListener(listener);
 	}
 	
 	/**
@@ -166,6 +183,12 @@ public class ToolPanel extends _2DrawPanel {
 			return tempButton;
 		} catch (IOException ex){} 	
 		return null;
+	}
+	
+	private JLabel createALabel(String text){
+		JLabel tempLabel = new JLabel(text);
+		tempLabel.setForeground(Color.WHITE);
+		return tempLabel;
 	}
 
 
