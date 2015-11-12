@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.rmi.Remote;
 import java.util.ArrayList;
 
 import javax.swing.event.MouseInputListener;
@@ -17,12 +18,12 @@ import _2Draw.Shapes.FillStyle;
 import _2Draw.Shapes.Shape;
 import _2Draw.Shapes.Square;
 
-public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener {
+public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener, Remote {
 	/* -----------------------------------------------------------------------------------------------------
 	 *  Class variables
 	 * -----------------------------------------------------------------------------------------------------
 	 */
-	private ArrayList<Shape> shapes = new ArrayList<Shape>();
+	private Shapes shapes = new Shapes();
 	private Shape activeShape = null;
 	private ToolPanel toolPanel;
 
@@ -40,16 +41,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 		addKeyListener(this);
 		toolPanel.addConfirmationListener(this);
 	}
-	
-	/* -----------------------------------------------------------------------------------------------------
-	 * Getters and Setters
-	 * -----------------------------------------------------------------------------------------------------
-	 */
-	public ArrayList<Shape> getShapes() {
-		return shapes;
-	}
-
-	
+		
 	/* ------------------------------------------------------------------------------------------------------
 	 * Class Methods, overrides first
 	 * ------------------------------------------------------------------------------------------------------
@@ -160,7 +152,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 				activeShape.setFillStyle(FillStyle.SOLID);
 			}
 			if(e.getSource().equals(toolPanel.confirmButton)){
-				shapes.add(activeShape);
+				shapes.addShape(activeShape);
 				activeShape = null;
 			}			
 		}
@@ -240,10 +232,11 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	 */
 	public void paint(Graphics g){
 		// Part two: to draw the shapes from the array list
-		if(shapes.size() != 0 ){
-			for (Shape shapeX : shapes){	
-				g = setGraphicsColor(g, shapeX);
-				drawShape(g, shapeX);
+		if(shapes.getSize() != 0 ){
+			for (int i = 0; i< shapes.getSize(); i++){	
+				//Shape x = shapes.getShape(i);
+				g = setGraphicsColor(g, shapes.getShape(i));
+				drawShape(g, shapes.getShape(i));
 			}
 		}
 		// Part one: to draw the active shape
