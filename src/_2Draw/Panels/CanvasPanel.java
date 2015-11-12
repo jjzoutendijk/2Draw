@@ -18,7 +18,7 @@ import _2Draw.Shapes.FillStyle;
 import _2Draw.Shapes.Shape;
 import _2Draw.Shapes.Square;
 
-public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener, Remote {
+public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener {
 	/* -----------------------------------------------------------------------------------------------------
 	 *  Class variables
 	 * -----------------------------------------------------------------------------------------------------
@@ -248,4 +248,5 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 
 
 	}
+
 }

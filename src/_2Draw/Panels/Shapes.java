@@ -1,34 +1,32 @@
 package _2Draw.Panels;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import _2Draw.Shapes.Shape;
 
-public class Shapes {
+public class Shapes implements RemoteServices{
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 
 	
-	
-	public ArrayList<Shape> getShapes() {
+	@Override
+	public ArrayList<Shape> getShapes() throws RemoteException {
 		return shapes;
 	}
-
-	public void setShapes(ArrayList<Shape> shapes) {
-		this.shapes = shapes;
-	}
 	
-	public void addShape(Shape s)
-	{
+	@Override
+	public void addShape(Shape s) throws RemoteException {
 		shapes.add(s);
 	}
 	
+	/*
 	public int getSize(){
 		return this.shapes.size();
 	}
 	
-	public Shape getShape(int i){
-		return shapes.get(i);
+	public void setShapes(ArrayList<Shape> shapes) {
+		this.shapes = shapes;
 	}
-	
+	*/
 
 }
