@@ -3,6 +3,7 @@
 	<name>2Draw</name>
 	<comment></comment>
 	<projects>
+		<project>2DrawServer</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -4,9 +4,9 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import _2Draw.Shapes.Shape;
+import Server.Shape;
 
-public interface RemoteServices extends Remote  {
+public interface ShapeInterface extends Remote  {
 	public void addShape(Shape S) throws RemoteException;
 	public ArrayList<Shape> getShapes() throws RemoteException;;
 }

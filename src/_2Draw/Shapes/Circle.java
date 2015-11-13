@@ -1,4 +1,7 @@
 package _2Draw.Shapes;
+
+import Server.Shape;
+
 public class Circle extends Shape {
 	
 	/* ------------------------------------------------------------------------------------------------------

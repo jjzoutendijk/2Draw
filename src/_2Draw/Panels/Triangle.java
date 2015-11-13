@@ -1,6 +1,6 @@
 package _2Draw.Panels;
 
-import _2Draw.Shapes.Shape;
+import Server.Shape;
 
 public class Triangle extends Shape {
 	

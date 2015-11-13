@@ -10,18 +10,18 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 import javax.swing.event.MouseInputListener;
 
-import _2Draw.ClientSide.ShapeServices;
+import Server.FillStyle;
+import Server.Shape;
+import Server.Shapes;
 import _2Draw.Shapes.Circle;
-import _2Draw.Shapes.FillStyle;
-import _2Draw.Shapes.Shape;
 import _2Draw.Shapes.Square;
 
-public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener, ShapeServices {
+public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener {
 	/* -----------------------------------------------------------------------------------------------------
 	 *  Class variables
 	 * -----------------------------------------------------------------------------------------------------
@@ -149,33 +149,58 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 				activeShape.setColor(Color.BLACK);
 			}
 			if(e.getSource().equals(toolPanel.noFillButton)){
-				activeShape.setFillStyle(FillStyle.EMPTY);
+				activeShape.setFillStyle(Server.FillStyle.EMPTY);
 			}
 			else if(e.getSource().equals(toolPanel.solidFillButton)){
-				activeShape.setFillStyle(FillStyle.SOLID);
+				activeShape.setFillStyle(Server.FillStyle.SOLID);
 			}
 			if(e.getSource().equals(toolPanel.confirmButton)){
 
 				System.out.println("confirm button hit");
-				ShapeServices ss;
+				
+				Shapes shapes;
+				
 				try {
-			        if (System.getSecurityManager() == null) {
-			            System.setSecurityManager(new SecurityManager());
-			        }
-					System.out.println("Security Manager Set");
-					ss = (ShapeServices)Naming.lookup("rmi://localhost/ABC");
-					ss.addShape(activeShape);
-					System.out.println("Result is :"+ ss);
+					System.setSecurityManager(new SecurityManager());
+					Registry registry = LocateRegistry.getRegistry();
+					final String[] boundNames = registry.list();  
+					System.out.println(  
+							"Names bound to RMI registry at host:");  
+
+					for (final String name : boundNames)  
+					{  
+						System.out.println("\t" + name);  
+					}  
+					shapes = (Shapes)registry.lookup("Shape");
+					
+					shapes.addShape(activeShape);
+					shapes.getShapes();
+					for(Shape shape : shapes.getShapes()){
+						System.out.println(shape.getType()+ "_");
+					};
+					System.out.println("Succes!");
 
 				}catch (Exception ex) {
-					System.out.println("HelloClient exception: " + ex);
+					System.out.println("ShapeClient exception: " + ex);
 					ex.printStackTrace();
 				}
-			activeShape = null;			
-		
-			}
+				//activeShape = null;	
+			
+				
+//		        try {
+//		            String name = "Compute";
+//		            Registry registry = LocateRegistry.getRegistry(args[0]);
+//		            Compute comp = (Compute) registry.lookup(name);
+//		            Pi task = new Pi(Integer.parseInt(args[1]));
+//		            BigDecimal pi = comp.executeTask(task);
+//		            System.out.println(pi);
+//		        } catch (Exception e) {
+//		            System.err.println("ComputePi exception:");
+//		            e.printStackTrace();
+		        }
+		repaint();						
 		}
-		repaint();
+		
 	}
 	
 /**
@@ -266,18 +291,6 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 		
 
 
-	}
-
-	@Override
-	public void addShape(Shape S) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ArrayList<Shape> getShapes() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

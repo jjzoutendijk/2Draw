@@ -1,5 +1,7 @@
 package _2Draw.Shapes;
 
+import Server.Shape;
+
 /**
  * This is a class for the square shape
  * 
