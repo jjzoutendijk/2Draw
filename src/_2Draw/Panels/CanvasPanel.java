@@ -8,17 +8,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.rmi.Remote;
+import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.event.MouseInputListener;
 
+import _2Draw.ClientSide.ShapeServices;
 import _2Draw.Shapes.Circle;
 import _2Draw.Shapes.FillStyle;
 import _2Draw.Shapes.Shape;
 import _2Draw.Shapes.Square;
 
-public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener {
+public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener, ShapeServices {
 	/* -----------------------------------------------------------------------------------------------------
 	 *  Class variables
 	 * -----------------------------------------------------------------------------------------------------
@@ -152,9 +155,25 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 				activeShape.setFillStyle(FillStyle.SOLID);
 			}
 			if(e.getSource().equals(toolPanel.confirmButton)){
-				shapes.addShape(activeShape);
-				activeShape = null;
-			}			
+
+				System.out.println("confirm button hit");
+				ShapeServices ss;
+				try {
+			        if (System.getSecurityManager() == null) {
+			            System.setSecurityManager(new SecurityManager());
+			        }
+					System.out.println("Security Manager Set");
+					ss = (ShapeServices)Naming.lookup("rmi://localhost/ABC");
+					ss.addShape(activeShape);
+					System.out.println("Result is :"+ ss);
+
+				}catch (Exception ex) {
+					System.out.println("HelloClient exception: " + ex);
+					ex.printStackTrace();
+				}
+			activeShape = null;			
+		
+			}
 		}
 		repaint();
 	}
@@ -232,13 +251,13 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	 */
 	public void paint(Graphics g){
 		// Part two: to draw the shapes from the array list
-		if(shapes.getSize() != 0 ){
-			for (int i = 0; i< shapes.getSize(); i++){	
-				//Shape x = shapes.getShape(i);
-				g = setGraphicsColor(g, shapes.getShape(i));
-				drawShape(g, shapes.getShape(i));
-			}
-		}
+//		if(shapes.getSize() != 0 ){
+//			for (int i = 0; i< shapes.getSize(); i++){	
+//				//Shape x = shapes.getShape(i);
+//				g = setGraphicsColor(g, shapes.getShape(i));
+//				drawShape(g, shapes.getShape(i));
+//			}
+//		}
 		// Part one: to draw the active shape
 		if(activeShape != null){
 			g = setGraphicsColor(g, activeShape);
@@ -247,6 +266,18 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 		
 
 
+	}
+
+	@Override
+	public void addShape(Shape S) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Shape> getShapes() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

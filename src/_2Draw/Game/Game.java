@@ -21,7 +21,7 @@ public class Game {
 	 * Constructors
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	Game(){
+	public Game(){
 		//create a frame and panels and set to the proper size
 		gameFrame = new JFrame();
 		gameFrame.setVisible(true);
