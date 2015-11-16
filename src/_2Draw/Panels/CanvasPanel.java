@@ -26,12 +26,11 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	 *  Class variables
 	 * -----------------------------------------------------------------------------------------------------
 	 */
-	//
 	private ArrayList<Shape> listShapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolPanel;
 	ShapeInterface shapesX;// = new Shapes();
-
+	ShapeInterface shapesY;// = new Shapes();
 	
 	/* ------------------------------------------------------------------------------------------------------
 	 * Constructor
@@ -85,11 +84,23 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	}
 
 	@Override
+	/**
+	 * Refresh the list from the server and paint the list when the canvas is clicked 
+	 * @param e
+	 */
 	public void mouseClicked(MouseEvent e) {
+		refreshServerList();
+		repaint();
 	}
-
+	
 	@Override
-	public void mouseEntered(MouseEvent arg0) {	
+	/**
+	 * Refresh the list from the server and paint the list when the canvas is clicked
+	 * @param arg0
+	 */
+	public void mouseEntered(MouseEvent arg0) {
+		refreshServerList();
+		repaint();
 	}
 
 	@Override
@@ -118,8 +129,8 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-
 	}
+	
 	
 	@Override
 	/**
@@ -157,9 +168,6 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 				activeShape.setFillStyle(Server.FillStyle.SOLID);
 			}
 			if(e.getSource().equals(toolPanel.confirmButton)){
-
-				System.out.println("confirm button hit");
-
 				try {
 					if (System.getSecurityManager() == null) {
 						System.setSecurityManager(new SecurityManager());
@@ -169,17 +177,15 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 					
 					Remote r = registry.lookup("Shapes");
 					shapesX = (ShapeInterface)r;
-					
-					System.out.println("Type on client: " + activeShape.getType());
-					System.out.println(activeShape.toString());
 					shapesX.addShape(activeShape);
-
+					/*System.out.println("Type on client: " + activeShape.toString());				
+					System.out.println("listsize: " + shapesX.getShapes().size());
 					int counter = 0;
 					for(Shape shapeI : shapesX.getShapes()){
 						System.out.println("Shape "+ counter + ": " + shapeI.getType());
 						counter++;
 					};
-
+					*/
 				}catch (Exception ex) {
 					System.out.println("ShapeClient exception: " + ex);
 					ex.printStackTrace();
@@ -263,36 +269,40 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	 * and one for the shapes from previous player turns.
 	 */
 	public void paint(Graphics g){		
-		// Part two: to draw the shapes from the array list
-/*		try {
-	         if (System.getSecurityManager() == null) {
-	             System.setSecurityManager(new SecurityManager());
-	         }
 
-			Registry registry = LocateRegistry.getRegistry();
-			
-			this.shapes = (Shapes)registry.lookup("Shapes");
-			this.listShapes = shapes.getShapes();
-
-		}catch (Exception ex) {
-			System.out.println("ShapeClient exception: " + ex);
-			ex.printStackTrace();
-		}
-		*/
+		// Part one: to draw the shapes from the array list		
 		if(listShapes.size() != 0 ){
-			for (int i = 0; i< listShapes.size(); i++){	
-				//Shape x = shapes.getShape(i);
+			for (int i = 0; i< listShapes.size(); i++){
 				g = setGraphicsColor(g, listShapes.get(i));
 				drawShape(g, listShapes.get(i));
 			}
 		}
-		// Part one: to draw the active shape
+		// Part two: to draw the active shape
 		if(activeShape != null){
 			g = setGraphicsColor(g, activeShape);
 			drawShape(g, activeShape);
 		}
-		
+	}
+	
+	/**
+	 * Retrieves the list with shapes from the server and adds them to the list in this class (useful before e.g. repaint method is
+	 * called) 
+	 */
+	public void refreshServerList(){
+		try {
+			if (System.getSecurityManager() == null) {
+				System.setSecurityManager(new SecurityManager());
+			}
 
+			Registry registry = LocateRegistry.getRegistry();
+			
+			Remote r = registry.lookup("Shapes");
+			shapesX = (ShapeInterface)r;
+			listShapes = shapesX.getShapes();
+		}catch (Exception ex) {
+			System.out.println("ShapeClient exception: " + ex);
+			ex.printStackTrace();
+		}
 
 	}
 
