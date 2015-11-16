@@ -8,27 +8,29 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
+import java.rmi.Remote;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 import javax.swing.event.MouseInputListener;
 
+import Server.Circle;
 import Server.FillStyle;
 import Server.Shape;
-import Server.Shapes;
-import _2Draw.Shapes.Circle;
-import _2Draw.Shapes.Square;
+import Server.ShapeInterface;
+import Server.Square;
 
 public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener {
 	/* -----------------------------------------------------------------------------------------------------
 	 *  Class variables
 	 * -----------------------------------------------------------------------------------------------------
 	 */
-	private Shapes shapes = new Shapes();
+	//
+	private ArrayList<Shape> listShapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolPanel;
+	ShapeInterface shapesX;// = new Shapes();
 
 	
 	/* ------------------------------------------------------------------------------------------------------
@@ -131,7 +133,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 			activeShape = new Square();
 		}
 
-		
+
 		if( activeShape != null){
 			if(e.getSource().equals(toolPanel.redButton)){
 				activeShape.setColor(Color.RED);
@@ -157,52 +159,38 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 			if(e.getSource().equals(toolPanel.confirmButton)){
 
 				System.out.println("confirm button hit");
-				
-				Shapes shapes;
-				
-				try {
-					System.setSecurityManager(new SecurityManager());
-					Registry registry = LocateRegistry.getRegistry();
-					final String[] boundNames = registry.list();  
-					System.out.println(  
-							"Names bound to RMI registry at host:");  
 
-					for (final String name : boundNames)  
-					{  
-						System.out.println("\t" + name);  
-					}  
-					shapes = (Shapes)registry.lookup("Shape");
+				try {
+					if (System.getSecurityManager() == null) {
+						System.setSecurityManager(new SecurityManager());
+					}
+
+					Registry registry = LocateRegistry.getRegistry();
 					
-					shapes.addShape(activeShape);
-					shapes.getShapes();
-					for(Shape shape : shapes.getShapes()){
-						System.out.println(shape.getType()+ "_");
+					Remote r = registry.lookup("Shapes");
+					shapesX = (ShapeInterface)r;
+					
+					System.out.println("Type on client: " + activeShape.getType());
+					System.out.println(activeShape.toString());
+					shapesX.addShape(activeShape);
+
+					int counter = 0;
+					for(Shape shapeI : shapesX.getShapes()){
+						System.out.println("Shape "+ counter + ": " + shapeI.getType());
+						counter++;
 					};
-					System.out.println("Succes!");
 
 				}catch (Exception ex) {
 					System.out.println("ShapeClient exception: " + ex);
 					ex.printStackTrace();
 				}
-				//activeShape = null;	
-			
-				
-//		        try {
-//		            String name = "Compute";
-//		            Registry registry = LocateRegistry.getRegistry(args[0]);
-//		            Compute comp = (Compute) registry.lookup(name);
-//		            Pi task = new Pi(Integer.parseInt(args[1]));
-//		            BigDecimal pi = comp.executeTask(task);
-//		            System.out.println(pi);
-//		        } catch (Exception e) {
-//		            System.err.println("ComputePi exception:");
-//		            e.printStackTrace();
-		        }
-		repaint();						
+				activeShape = null;	
+				repaint();						
+			}
+
 		}
-		
 	}
-	
+
 /**
  * This method sets the graphics color to the proper value, getting the value from the shape and setting it in the graphics object
  * @param g - The graphics object for which the color value will be set
@@ -274,15 +262,30 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	 * This method paints the components on the canvas. It consists of two parts, one for the active shape, 
 	 * and one for the shapes from previous player turns.
 	 */
-	public void paint(Graphics g){
+	public void paint(Graphics g){		
 		// Part two: to draw the shapes from the array list
-//		if(shapes.getSize() != 0 ){
-//			for (int i = 0; i< shapes.getSize(); i++){	
-//				//Shape x = shapes.getShape(i);
-//				g = setGraphicsColor(g, shapes.getShape(i));
-//				drawShape(g, shapes.getShape(i));
-//			}
-//		}
+/*		try {
+	         if (System.getSecurityManager() == null) {
+	             System.setSecurityManager(new SecurityManager());
+	         }
+
+			Registry registry = LocateRegistry.getRegistry();
+			
+			this.shapes = (Shapes)registry.lookup("Shapes");
+			this.listShapes = shapes.getShapes();
+
+		}catch (Exception ex) {
+			System.out.println("ShapeClient exception: " + ex);
+			ex.printStackTrace();
+		}
+		*/
+		if(listShapes.size() != 0 ){
+			for (int i = 0; i< listShapes.size(); i++){	
+				//Shape x = shapes.getShape(i);
+				g = setGraphicsColor(g, listShapes.get(i));
+				drawShape(g, listShapes.get(i));
+			}
+		}
 		// Part one: to draw the active shape
 		if(activeShape != null){
 			g = setGraphicsColor(g, activeShape);
