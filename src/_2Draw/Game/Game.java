@@ -29,19 +29,18 @@ public class Game{
 	 * ------------------------------------------------------------------------------------------------------
 	 */
 	public Game()  {
-		//create a frame and panels and set to the proper size
+		// Create a frame
 		gameFrame = new JFrame();
-		
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//containerPanel contains the left and right panels
+		// ContainerPanel contains the left and right panels
 		JPanel containerPanel = new JPanel();
 		
-		//create the left half of the canvas: tool panel
+		// Create the left half of the canvas: tool panel. Right half is initiated as a class variable
 		ToolPanel leftPanel = new ToolPanel();
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 		
-		//create the right half of the canvas: color chooser and canvas panel	
+		// Create the right half of the canvas: and add color chooser panel and canvas panel	
 		rightPanel.setLayout(cl);
 		CanvasPanel canvasPanel = new CanvasPanel(leftPanel, rightPanel);	
 		ColorChooser colorChooser = new ColorChooser(leftPanel, rightPanel, canvasPanel);
@@ -49,8 +48,7 @@ public class Game{
 		rightPanel.add(colorChooser, COLORPICKER);
 		cl.show(rightPanel, CANVAS);
 		
-		
-		//add the panels to the frame
+		// Add the panels to container panel and add that to the frame
 		containerPanel.add(leftPanel);		
 		containerPanel.add(rightPanel);
 		gameFrame.add(containerPanel);
@@ -58,8 +56,12 @@ public class Game{
 		gameFrame.pack();
 		gameFrame.setVisible(true);
 		
-		
 	}
+	
+	/**
+	 * This function allows the right panel to switch between the Color picker panel and the canvas panel.
+	 * @param canvas the panel to switch to (either the color picker or the canvas)
+	 */
 
 	public void changeLayout(String canvas) {
 		if(canvas.equals(COLORPICKER)){
@@ -67,11 +69,8 @@ public class Game{
 		}
 		else if(canvas.equals(CANVAS)){
 			cl.show(rightPanel, CANVAS);
-		}
-		
+		}	
 	}
-		
-		
-	
+			
 	
 }

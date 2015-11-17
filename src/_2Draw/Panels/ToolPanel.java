@@ -1,12 +1,11 @@
 package _2Draw.Panels;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
+import java.awt.Panel;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
@@ -24,7 +23,7 @@ import javax.swing.JToggleButton;
  * @version 2.0
  *
  */
-public class ToolPanel extends _2DrawPanel {
+public class ToolPanel extends Panel {
 	/* ------------------------------------------------------------------------------------------------------
 	 * Class Variables 
 	 * ------------------------------------------------------------------------------------------------------

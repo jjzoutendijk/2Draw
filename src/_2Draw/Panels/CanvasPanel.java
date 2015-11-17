@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -24,7 +25,7 @@ import Server.ShapeInterface;
 import Server.Square;
 import _2Draw.Game.Game;
 
-public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener {
+public class CanvasPanel extends Panel implements KeyListener, MouseInputListener, ActionListener {
 	/* -----------------------------------------------------------------------------------------------------
 	 *  Class variables
 	 * -----------------------------------------------------------------------------------------------------
