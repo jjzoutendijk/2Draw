@@ -38,8 +38,8 @@ public class ToolPanel extends Panel {
 	private JLabel shapeLabel;
 	private JLabel colorLabel;
 	private JLabel fillStyleLabel;
+	private JLabel confirmShapeLabel;
 	private ButtonGroup shapeButtons;
-	private ButtonGroup colorButtons;
 	private ButtonGroup fillStyleButtons;
 	private static Dimension buttonSize = new Dimension(30,30);
 
@@ -69,12 +69,12 @@ public class ToolPanel extends Panel {
 		shapeLabel = createALabel("Shape");
 		colorLabel = createALabel("Color");
 		fillStyleLabel = createALabel("Fill Style");
+		confirmShapeLabel = createALabel("Confirm");
 
 		// Create groups to ensure only one button is active
 		shapeButtons= new ButtonGroup();
 		shapeButtons.add(circleButton);
 		shapeButtons.add(squareButton);
-
 		
 		fillStyleButtons = new ButtonGroup();
 		fillStyleButtons.add(solidFillButton);
@@ -89,6 +89,7 @@ public class ToolPanel extends Panel {
 		this.add(fillStyleLabel);
 		this.add(noFillButton);
 		this.add(solidFillButton);
+		this.add(confirmShapeLabel);
 		this.add(confirmButton);
 		
 

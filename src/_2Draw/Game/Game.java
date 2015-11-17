@@ -1,14 +1,17 @@
 package _2Draw.Game;
 
 import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.rmi.Remote;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Server.Player;
+import Server.PlayerInterface;
 import _2Draw.Panels.CanvasPanel;
 import _2Draw.Panels.ColorChooser;
 import _2Draw.Panels.ToolPanel;
@@ -21,6 +24,9 @@ public class Game{
 	private JFrame gameFrame;
 	private CardLayout cl = new CardLayout();
 	private JPanel rightPanel = new JPanel();
+	private Player p1;
+	private ArrayList<Player> players;
+	private PlayerInterface player;
 	public final static String CANVAS = "CanvasPanel";
     public final static String COLORPICKER = "ColorPicker";
 	
@@ -56,6 +62,8 @@ public class Game{
 		gameFrame.pack();
 		gameFrame.setVisible(true);
 		
+		createNewPlayer();
+
 	}
 	
 	/**
@@ -70,6 +78,31 @@ public class Game{
 		else if(canvas.equals(CANVAS)){
 			cl.show(rightPanel, CANVAS);
 		}	
+	}
+	
+	public void createNewPlayer(){
+		try {
+			if (System.getSecurityManager() == null) {
+				System.setSecurityManager(new SecurityManager());
+			}
+
+			Registry registry = LocateRegistry.getRegistry();
+			
+			Remote r = registry.lookup("Players");
+			player = (PlayerInterface)r;
+			int numberOfPlayers = player.numberOfPlayers();
+			System.out.println(numberOfPlayers);
+			int playerNumber = ++numberOfPlayers;
+			
+			p1 = new Player();
+			p1.setIndex(playerNumber);
+			player.addPlayer(p1);
+			
+
+		}catch (Exception ex) {
+			System.out.println("ShapeClient exception: " + ex);
+			ex.printStackTrace();
+		}
 	}
 			
 	
