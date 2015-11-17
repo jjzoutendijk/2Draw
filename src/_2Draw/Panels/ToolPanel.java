@@ -1,10 +1,12 @@
 package _2Draw.Panels;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
@@ -30,10 +32,7 @@ public class ToolPanel extends _2DrawPanel {
 	JToggleButton circleButton;
 	JToggleButton squareButton;
 	JToggleButton whiteButton;
-	JToggleButton redButton;
-	JToggleButton blueButton;
-	JToggleButton greenButton;
-	JToggleButton blackButton;
+	public static JToggleButton colorButton;
 	JToggleButton noFillButton;
 	JToggleButton solidFillButton;
 	JButton confirmButton;
@@ -62,11 +61,7 @@ public class ToolPanel extends _2DrawPanel {
 		squareButton = createAToggleButton("/square.png");
 		confirmButton = createAButton("/confirm.png");
 		
-		whiteButton = createAToggleButton("/white.png");
-		redButton = createAToggleButton("/red.png");
-		blueButton = createAToggleButton("/blue.png");
-		greenButton = createAToggleButton("/green.png");
-		blackButton = createAToggleButton("/black.png");
+		colorButton = createAToggleButton("/color_picker.png");
 		
 		noFillButton = createAToggleButton("/noFill.png");
 		solidFillButton = createAToggleButton("/SolidFill.png");
@@ -81,12 +76,6 @@ public class ToolPanel extends _2DrawPanel {
 		shapeButtons.add(circleButton);
 		shapeButtons.add(squareButton);
 
-		colorButtons = new ButtonGroup();
-		colorButtons.add(whiteButton);
-		colorButtons.add(blueButton);
-		colorButtons.add(redButton);
-		colorButtons.add(blackButton);
-		colorButtons.add(greenButton);
 		
 		fillStyleButtons = new ButtonGroup();
 		fillStyleButtons.add(solidFillButton);
@@ -97,15 +86,12 @@ public class ToolPanel extends _2DrawPanel {
 		this.add(circleButton);
 		this.add(squareButton);
 		this.add(colorLabel);
-		this.add(whiteButton);
-		this.add(redButton);
-		this.add(blackButton);
-		this.add(blueButton);
-		this.add(greenButton);
+		this.add(colorButton);
 		this.add(fillStyleLabel);
 		this.add(noFillButton);
 		this.add(solidFillButton);
 		this.add(confirmButton);
+		
 
 	}
 
@@ -141,10 +127,7 @@ public class ToolPanel extends _2DrawPanel {
 		confirmButton.addActionListener(listener);
 		circleButton.addActionListener(listener);
 		squareButton.addActionListener(listener);
-		redButton.addActionListener(listener);
-		whiteButton.addActionListener(listener);
-		greenButton.addActionListener(listener);
-		blueButton.addActionListener(listener);
+		colorButton.addActionListener(listener);
 		noFillButton.addActionListener(listener);
 		solidFillButton.addActionListener(listener);
 	}
@@ -190,6 +173,8 @@ public class ToolPanel extends _2DrawPanel {
 		tempLabel.setForeground(Color.WHITE);
 		return tempLabel;
 	}
+
+
 
 
 

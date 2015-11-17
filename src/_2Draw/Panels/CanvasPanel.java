@@ -1,5 +1,6 @@
 package _2Draw.Panels;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,6 +14,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 import Server.Circle;
@@ -20,6 +22,7 @@ import Server.FillStyle;
 import Server.Shape;
 import Server.ShapeInterface;
 import Server.Square;
+import _2Draw.Game.Game;
 
 public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputListener, ActionListener {
 	/* -----------------------------------------------------------------------------------------------------
@@ -29,6 +32,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	private ArrayList<Shape> listShapes = new ArrayList<Shape>();
 	private Shape activeShape = null;
 	private ToolPanel toolPanel;
+	private JPanel rightPanel;
 	ShapeInterface shapesX;// = new Shapes();
 	ShapeInterface shapesY;// = new Shapes();
 	
@@ -36,15 +40,32 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 	 * Constructor
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	public CanvasPanel(ToolPanel toolPanel){
+	public CanvasPanel(ToolPanel toolPanel, JPanel rightPanel){
 		this.setPreferredSize(new Dimension(500, 500));
 		this.setBackground(Color.WHITE);
 		this.toolPanel = toolPanel;
+		this.rightPanel = rightPanel; 
 		addMouseMotionListener(this);
 		addMouseListener(this);
 		addKeyListener(this);
 		toolPanel.addConfirmationListener(this);
 	}
+	
+	/* ------------------------------------------------------------------------------------------------------
+	 * Getters and Setters
+	 * ------------------------------------------------------------------------------------------------------
+	 */
+	public Shape getActiveShape() {
+		if (activeShape != null)
+			return activeShape;
+		else return null;
+	}
+
+	public void setActiveShape(Shape activeShape) {
+		this.activeShape = activeShape;
+	}
+
+	
 		
 	/* ------------------------------------------------------------------------------------------------------
 	 * Class Methods, overrides first
@@ -143,24 +164,14 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 		if(e.getSource().equals(toolPanel.squareButton)){
 			activeShape = new Square();
 		}
-
-
+		if(e.getSource().equals(ToolPanel.colorButton)){
+			
+			CardLayout cl = (CardLayout)(rightPanel.getLayout());
+			cl.show(rightPanel, Game.COLORPICKER);
+		}
+		
 		if( activeShape != null){
-			if(e.getSource().equals(toolPanel.redButton)){
-				activeShape.setColor(Color.RED);
-			}
-			else if(e.getSource().equals(toolPanel.whiteButton)){
-				activeShape.setColor(Color.WHITE);
-			}
-			else if(e.getSource().equals(toolPanel.greenButton)){
-				activeShape.setColor(Color.GREEN);
-			}
-			else if(e.getSource().equals(toolPanel.blueButton)){
-				activeShape.setColor(Color.BLUE);
-			}
-			else if(e.getSource().equals(toolPanel.blackButton)){
-				activeShape.setColor(Color.BLACK);
-			}
+
 			if(e.getSource().equals(toolPanel.noFillButton)){
 				activeShape.setFillStyle(Server.FillStyle.EMPTY);
 			}
@@ -204,28 +215,29 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
  * @return The return value is the graphics object with the proper color set
  */
 	public Graphics setGraphicsColor(Graphics g, Shape shape){
-		switch (shape.getColorString()){
-			case "white":{
-				g.setColor(Color.WHITE);
-				break;
-			}
-			case "red":{
-				g.setColor(Color.RED);
-				break;
-			}
-			case "green":{
-				g.setColor(Color.GREEN);
-				break;
-			}
-			case "blue":{
-				g.setColor(Color.BLUE);
-				break;
-			}
-			default:{
-				g.setColor(Color.BLACK);
-				break;
-			}
-		}
+		g.setColor(shape.getColor());
+//		switch (shape.getColor()){
+//			case "white":{
+//				g.setColor(Color.WHITE);
+//				break;
+//			}
+//			case "red":{
+//				g.setColor(Color.RED);
+//				break;
+//			}
+//			case "green":{
+//				g.setColor(Color.GREEN);
+//				break;
+//			}
+//			case "blue":{
+//				g.setColor(Color.BLUE);
+//				break;
+//			}
+//			default:{
+//				g.setColor(Color.BLACK);
+//				break;
+//			}
+//		}
 	return g;	
 	}
 	
