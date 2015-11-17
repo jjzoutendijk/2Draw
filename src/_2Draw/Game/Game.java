@@ -1,6 +1,8 @@
 package _2Draw.Game;
 
 import java.awt.CardLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.rmi.Remote;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -16,7 +18,7 @@ import _2Draw.Panels.CanvasPanel;
 import _2Draw.Panels.ColorChooser;
 import _2Draw.Panels.ToolPanel;
 
-public class Game{
+public class Game implements WindowListener{
 	/* ------------------------------------------------------------------------------------------------------
 	 * Class Variables
 	 * ------------------------------------------------------------------------------------------------------
@@ -26,7 +28,7 @@ public class Game{
 	private JPanel rightPanel = new JPanel();
 	private Player p1;
 	private ArrayList<Player> players;
-	private PlayerInterface player;
+	private PlayerInterface playerI;
 	public final static String CANVAS = "CanvasPanel";
     public final static String COLORPICKER = "ColorPicker";
 	
@@ -39,6 +41,9 @@ public class Game{
 		gameFrame = new JFrame();
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		// Create a player
+		createNewPlayer();
+		
 		// ContainerPanel contains the left and right panels
 		JPanel containerPanel = new JPanel();
 		
@@ -48,8 +53,8 @@ public class Game{
 		
 		// Create the right half of the canvas: and add color chooser panel and canvas panel	
 		rightPanel.setLayout(cl);
-		CanvasPanel canvasPanel = new CanvasPanel(leftPanel, rightPanel);	
-		ColorChooser colorChooser = new ColorChooser(leftPanel, rightPanel, canvasPanel);
+		CanvasPanel canvasPanel = new CanvasPanel(leftPanel, rightPanel, p1);	
+		ColorChooser colorChooser = new ColorChooser(leftPanel, rightPanel, canvasPanel, p1);
 		rightPanel.add(canvasPanel, CANVAS);
 		rightPanel.add(colorChooser, COLORPICKER);
 		cl.show(rightPanel, CANVAS);
@@ -61,9 +66,6 @@ public class Game{
 		gameFrame.setResizable(false);
 		gameFrame.pack();
 		gameFrame.setVisible(true);
-		
-		createNewPlayer();
-
 	}
 	
 	/**
@@ -80,6 +82,9 @@ public class Game{
 		}	
 	}
 	
+	/**
+	 * Method that creates a new player and adds it in the players list on the server
+	 */
 	public void createNewPlayer(){
 		try {
 			if (System.getSecurityManager() == null) {
@@ -89,20 +94,61 @@ public class Game{
 			Registry registry = LocateRegistry.getRegistry();
 			
 			Remote r = registry.lookup("Players");
-			player = (PlayerInterface)r;
-			int numberOfPlayers = player.numberOfPlayers();
+			playerI = (PlayerInterface)r;
+			int numberOfPlayers = playerI.numberOfPlayers();
 			System.out.println(numberOfPlayers);
 			int playerNumber = ++numberOfPlayers;
 			
 			p1 = new Player();
 			p1.setIndex(playerNumber);
-			player.addPlayer(p1);
+			playerI.addPlayer(p1);
 			
-
 		}catch (Exception ex) {
 			System.out.println("ShapeClient exception: " + ex);
 			ex.printStackTrace();
 		}
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		System.out.println(e.getWindow());
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 			
 	

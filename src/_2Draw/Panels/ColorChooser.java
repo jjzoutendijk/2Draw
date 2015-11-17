@@ -48,6 +48,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Server.Player;
 import Server.Shape;
 import _2Draw.Game.Game;
  
@@ -68,7 +69,7 @@ public class ColorChooser extends JPanel implements ChangeListener, ActionListen
 	 * Constructor
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-    public ColorChooser(ToolPanel leftPanel, JPanel rightPanel, CanvasPanel canvasPanel) {
+    public ColorChooser(ToolPanel leftPanel, JPanel rightPanel, CanvasPanel canvasPanel, Player p1) {
         super(new BorderLayout());
         
         this.leftPanel = leftPanel;
@@ -79,7 +80,7 @@ public class ColorChooser extends JPanel implements ChangeListener, ActionListen
         //Set up the banner at the top of the window
         banner = new JLabel("Please choose a color:",JLabel.CENTER);
         colorConfirmed = new JButton("Confirm");
-        banner.setForeground(Color.yellow);
+        banner.setForeground(Color.black);
         banner.setBackground(Color.white);
         banner.setOpaque(true);
         banner.setFont(new Font("SansSerif", Font.BOLD, 24));

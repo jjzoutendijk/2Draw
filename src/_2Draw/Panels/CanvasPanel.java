@@ -14,14 +14,13 @@ import java.rmi.Remote;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 import Server.Circle;
 import Server.FillStyle;
+import Server.Player;
 import Server.Shape;
 import Server.ShapeInterface;
 import Server.Square;
@@ -36,6 +35,7 @@ public class CanvasPanel extends Panel implements KeyListener, MouseInputListene
 	private Shape activeShape = null;
 	private ToolPanel toolPanel;
 	private JPanel rightPanel;
+	private Player p1;
 	ShapeInterface shapesX;// = new Shapes();
 	ShapeInterface shapesY;// = new Shapes();
 	
@@ -43,11 +43,12 @@ public class CanvasPanel extends Panel implements KeyListener, MouseInputListene
 	 * Constructor
 	 * ------------------------------------------------------------------------------------------------------
 	 */
-	public CanvasPanel(ToolPanel toolPanel, JPanel rightPanel){
+	public CanvasPanel(ToolPanel toolPanel, JPanel rightPanel, Player p1){
 		this.setPreferredSize(new Dimension(500, 500));
 		this.setBackground(Color.WHITE);
 		this.toolPanel = toolPanel;
 		this.rightPanel = rightPanel; 
+		this.p1 = p1;
 		addMouseMotionListener(this);
 		addMouseListener(this);
 		addKeyListener(this);
