@@ -189,14 +189,7 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
 					Remote r = registry.lookup("Shapes");
 					shapesX = (ShapeInterface)r;
 					shapesX.addShape(activeShape);
-					/*System.out.println("Type on client: " + activeShape.toString());				
-					System.out.println("listsize: " + shapesX.getShapes().size());
-					int counter = 0;
-					for(Shape shapeI : shapesX.getShapes()){
-						System.out.println("Shape "+ counter + ": " + shapeI.getType());
-						counter++;
-					};
-					*/
+
 				}catch (Exception ex) {
 					System.out.println("ShapeClient exception: " + ex);
 					ex.printStackTrace();
@@ -216,28 +209,6 @@ public class CanvasPanel extends _2DrawPanel implements KeyListener, MouseInputL
  */
 	public Graphics setGraphicsColor(Graphics g, Shape shape){
 		g.setColor(shape.getColor());
-//		switch (shape.getColor()){
-//			case "white":{
-//				g.setColor(Color.WHITE);
-//				break;
-//			}
-//			case "red":{
-//				g.setColor(Color.RED);
-//				break;
-//			}
-//			case "green":{
-//				g.setColor(Color.GREEN);
-//				break;
-//			}
-//			case "blue":{
-//				g.setColor(Color.BLUE);
-//				break;
-//			}
-//			default:{
-//				g.setColor(Color.BLACK);
-//				break;
-//			}
-//		}
 	return g;	
 	}
 	
