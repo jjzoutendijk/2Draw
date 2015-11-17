@@ -53,7 +53,10 @@ import _2Draw.Game.Game;
  
 /* ColorChooserDemo.java requires no other files. */
 public class ColorChooser extends JPanel implements ChangeListener, ActionListener {
- 
+	/* ------------------------------------------------------------------------------------------------------
+	 * Class Variables
+	 * ------------------------------------------------------------------------------------------------------
+	 */
     protected JColorChooser tcc;
     protected JLabel banner;
     private JPanel rightPanel;
@@ -61,6 +64,10 @@ public class ColorChooser extends JPanel implements ChangeListener, ActionListen
     private JButton colorConfirmed;
     private CanvasPanel canvasPanel;
  
+	/* ------------------------------------------------------------------------------------------------------
+	 * Constructor
+	 * ------------------------------------------------------------------------------------------------------
+	 */
     public ColorChooser(ToolPanel leftPanel, JPanel rightPanel, CanvasPanel canvasPanel) {
         super(new BorderLayout());
         
@@ -93,14 +100,15 @@ public class ColorChooser extends JPanel implements ChangeListener, ActionListen
         
 		colorConfirmed.addActionListener(this);
     }
- 
-    public void stateChanged(ChangeEvent e) {
-        Color newColor = tcc.getColor();
-        banner.setForeground(newColor);
-        
-    }
-
-	@Override
+    
+	/* ------------------------------------------------------------------------------------------------------
+	 * Class Methods
+	 * ------------------------------------------------------------------------------------------------------
+	 */
+    @Override
+    /**
+     * Action performed method, switched panels when the confirm button is clicked
+     */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(this.colorConfirmed)){
 			CardLayout cl = (CardLayout)(rightPanel.getLayout());
@@ -112,6 +120,16 @@ public class ColorChooser extends JPanel implements ChangeListener, ActionListen
 		}
 		
 	}
+    
+    /**
+     * Method called when a different color is chosen.
+     */
+    public void stateChanged(ChangeEvent e) {
+        Color newColor = tcc.getColor();
+        banner.setForeground(newColor);
+    }
+
+
 	
 
 }

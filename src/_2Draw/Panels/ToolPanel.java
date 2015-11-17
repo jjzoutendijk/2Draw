@@ -167,6 +167,11 @@ public class ToolPanel extends Panel {
 		return null;
 	}
 	
+	/**
+	 * Methods to create a label with the proper settings
+	 * @param text
+	 * @return
+	 */
 	private JLabel createALabel(String text){
 		JLabel tempLabel = new JLabel(text);
 		tempLabel.setForeground(Color.WHITE);

@@ -14,6 +14,8 @@ import java.rmi.Remote;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
@@ -50,6 +52,7 @@ public class CanvasPanel extends Panel implements KeyListener, MouseInputListene
 		addMouseListener(this);
 		addKeyListener(this);
 		toolPanel.addConfirmationListener(this);
+        ApplicationTimer timer = new ApplicationTimer(this);
 	}
 	
 	/* ------------------------------------------------------------------------------------------------------
@@ -138,8 +141,8 @@ public class CanvasPanel extends Panel implements KeyListener, MouseInputListene
 	}
 
 	@Override
-	/*
-	 * When dragging the mouse, the shape is dragged along.
+	/**
+	 * When dragging the mouse, the active shape is dragged along.
 	 */
 	public void mouseDragged(MouseEvent e) {
 		if(activeShape != null){
@@ -166,13 +169,12 @@ public class CanvasPanel extends Panel implements KeyListener, MouseInputListene
 			activeShape = new Square();
 		}
 		if(e.getSource().equals(ToolPanel.colorButton)){
-			
 			CardLayout cl = (CardLayout)(rightPanel.getLayout());
 			cl.show(rightPanel, Game.COLORPICKER);
 		}
 		
+		// Actions that can only be performed when there is an active shape available 
 		if( activeShape != null){
-
 			if(e.getSource().equals(toolPanel.noFillButton)){
 				activeShape.setFillStyle(Server.FillStyle.EMPTY);
 			}
@@ -195,7 +197,7 @@ public class CanvasPanel extends Panel implements KeyListener, MouseInputListene
 					System.out.println("ShapeClient exception: " + ex);
 					ex.printStackTrace();
 				}
-				activeShape = null;	
+				//activeShape = null;	
 				repaint();						
 			}
 
@@ -289,5 +291,6 @@ public class CanvasPanel extends Panel implements KeyListener, MouseInputListene
 		}
 
 	}
+	
 
 }
