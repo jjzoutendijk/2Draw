@@ -73,7 +73,7 @@ public class ColorChooser extends JPanel implements ChangeListener, ActionListen
         banner = new JLabel("Please choose a color:",JLabel.CENTER);
         colorConfirmed = new JButton("Confirm");
         banner.setForeground(Color.yellow);
-        banner.setBackground(Color.blue);
+        banner.setBackground(Color.white);
         banner.setOpaque(true);
         banner.setFont(new Font("SansSerif", Font.BOLD, 24));
         banner.setPreferredSize(new Dimension(100, 65));
@@ -106,7 +106,6 @@ public class ColorChooser extends JPanel implements ChangeListener, ActionListen
 			CardLayout cl = (CardLayout)(rightPanel.getLayout());
 			cl.show(rightPanel, Game.CANVAS);
 		}
-		System.out.println(banner.getForeground());
 		if (canvasPanel.getActiveShape() != null){ 
 			Shape activeShape = canvasPanel.getActiveShape();
 			activeShape.setColor(banner.getForeground());
