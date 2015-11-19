@@ -193,7 +193,7 @@ public class CanvasPanel extends Panel implements KeyListener, MouseInputListene
 					Remote r = registry.lookup("Shapes");
 					shapesX = (ShapeInterface)r;
 					shapesX.addShape(activeShape);
-
+					
 				}catch (Exception ex) {
 					System.out.println("ShapeClient exception: " + ex);
 					ex.printStackTrace();
