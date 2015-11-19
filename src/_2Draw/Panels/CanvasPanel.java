@@ -280,7 +280,6 @@ public class CanvasPanel extends Panel implements KeyListener, MouseInputListene
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new SecurityManager());
 			}
-
 			Registry registry = LocateRegistry.getRegistry();
 			
 			Remote r = registry.lookup("Shapes");
