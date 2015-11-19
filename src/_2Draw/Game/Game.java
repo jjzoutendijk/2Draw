@@ -4,12 +4,14 @@ import java.awt.CardLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Server.Player;
@@ -18,7 +20,7 @@ import _2Draw.Panels.CanvasPanel;
 import _2Draw.Panels.ColorChooser;
 import _2Draw.Panels.ToolPanel;
 
-public class Game implements WindowListener{
+public class Game {
 	/* ------------------------------------------------------------------------------------------------------
 	 * Class Variables
 	 * ------------------------------------------------------------------------------------------------------
@@ -39,10 +41,10 @@ public class Game implements WindowListener{
 	public Game()  {
 		// Create a frame
 		gameFrame = new JFrame();
-		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Create a player
-		createNewPlayer();
+		this.p1 = createNewPlayer();
 		
 		// ContainerPanel contains the left and right panels
 		JPanel containerPanel = new JPanel();
@@ -66,6 +68,20 @@ public class Game implements WindowListener{
 		gameFrame.setResizable(false);
 		gameFrame.pack();
 		gameFrame.setVisible(true);
+		
+		// Add an option that checks 
+		gameFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        if (JOptionPane.showConfirmDialog(gameFrame, 
+		            "Are you sure to close this window?", "Really Closing?", 
+		            JOptionPane.YES_NO_OPTION,
+		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+		        	removePlayer();
+		            System.exit(0);
+		        }
+		    }
+		});
 	}
 	
 	/**
@@ -85,7 +101,7 @@ public class Game implements WindowListener{
 	/**
 	 * Method that creates a new player and adds it in the players list on the server
 	 */
-	public void createNewPlayer(){
+	public Player createNewPlayer(){
 		try {
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new SecurityManager());
@@ -96,60 +112,39 @@ public class Game implements WindowListener{
 			Remote r = registry.lookup("Players");
 			playerI = (PlayerInterface)r;
 			int numberOfPlayers = playerI.numberOfPlayers();
-			System.out.println(numberOfPlayers);
-			int playerNumber = ++numberOfPlayers;
+			System.out.println("Current number of players: " + numberOfPlayers);
+			int playerNumber =+ numberOfPlayers;
 			
 			p1 = new Player();
 			p1.setIndex(playerNumber);
 			playerI.addPlayer(p1);
-			
 		}catch (Exception ex) {
+			System.out.println("ShapeClient exception: " + ex);
+			ex.printStackTrace();
+		}
+		return p1;
+	}
+	
+	/**
+	 * Method to remove this player form the game on the server. Called before the client is closed
+	 */
+	public void removePlayer(){
+		try {
+			if (System.getSecurityManager() == null) {
+				System.setSecurityManager(new SecurityManager());
+			}
+
+			Registry registry = LocateRegistry.getRegistry();
+			
+			Remote r = registry.lookup("Players");
+			playerI = (PlayerInterface)r;
+			
+			playerI.removePlayer(this.p1);
+		} catch (Exception ex) {
 			System.out.println("ShapeClient exception: " + ex);
 			ex.printStackTrace();
 		}
 	}
 
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void windowClosing(WindowEvent e) {
-		System.out.println(e.getWindow());
-		
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-			
-	
 }
