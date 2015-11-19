@@ -74,7 +74,7 @@ public class Game {
 		    @Override
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 		        if (JOptionPane.showConfirmDialog(gameFrame, 
-		            "Are you sure to close this window?", "Really Closing?", 
+		            "Are you sure you want to quit?", "Confirm close", 
 		            JOptionPane.YES_NO_OPTION,
 		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
 		        	removePlayer();
